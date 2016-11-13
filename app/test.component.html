@@ -1,7 +1,43 @@
-<h2>Alright, angular2 up and running!</h2>
+<div class="tabs is-medium is-centered">
+    <ul>
+        <li [ngClass]="{ 'is-active': currentPage == 'logging' }" (click)="currentPage = 'logging'"><a>Log things</a></li>
+        <li (click)="currentPage = 'history'" [ngClass]="{ 'is-active': currentPage == 'history' }"><a>History</a></li>
+    </ul>
+</div>
 
-<div>
-    <input type="text" name="testInput" [(ngModel)]="testText">
-</div> 
+<div class="columns is-centered">
+    <div class="column is-half">
+        <form *ngIf="currentPage == 'logging'">
+            <label for="activity" class="label">Activity</label>
+            <input type="text" class="input" name="activity" value="">
 
-<div>The text repeated, just for show: {{ testText }} </div>
+            <label for="milk" class="label">Milk</label>
+            <input type="text" class="input" name="milk" value="">
+
+            <label for="sleep" class="label">Sleep</label>
+            <input type="text" class="input" name="sleep" value="">
+
+            <input type="submit" class="button" name="submit" value="Save">
+        </form>
+
+        <div *ngIf="currentPage === 'history'">
+            <h3>Here comes history</h3>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th *ngFor="let header of headers">{{ header }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of data">
+                        <td>{{item.activity}}</td>
+                        <td>{{item.milk}}</td>
+                        <td>{{item.sleep}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

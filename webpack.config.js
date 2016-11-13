@@ -1,6 +1,7 @@
 
 module.exports = {
     watch: true,
+    devtool: 'source-map',
     entry: {
         app: ['./node_modules/zone.js/dist/zone.js',
             './node_modules/reflect-metadata/reflect.js',
@@ -17,7 +18,7 @@ module.exports = {
             { test: /\.tsx?$/, loaders: ['ts-loader', 'angular2-template-loader'] },
             {
                 test: /\.(html|css)$/,
-                loader: 'raw-loader'
+                loader: 'raw-loader' 
             }
         ]
     }
