@@ -7,17 +7,18 @@
 
 <div class="columns is-centered">
     <div class="column is-half">
+
         <form *ngIf="currentPage == 'logging'">
-            <label for="activity" class="label">Activity</label>
-            <input type="text" class="input" name="activity" value="">
 
-            <label for="milk" class="label">Milk</label>
-            <input type="text" class="input" name="milk" value="">
+            <div *ngFor="let item of data" class="control">
+                <label [attr.for]="item.type.name" class="label">{{ item.type.name }}</label>
+                <input type="text" class="input" [attr.name]="item.type.name" value="">
+            </div>
 
-            <label for="sleep" class="label">Sleep</label>
-            <input type="text" class="input" name="sleep" value="">
+            <p class="control">
+                <input type="submit" class="is-primary button is-pulled-right" name="submit" value="Save">
+            </p>
 
-            <input type="submit" class="button" name="submit" value="Save">
         </form>
 
         <div *ngIf="currentPage === 'history'">
@@ -31,9 +32,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of data">
-                        <td>{{item.activity}}</td>
-                        <td>{{item.milk}}</td>
-                        <td>{{item.sleep}}</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
