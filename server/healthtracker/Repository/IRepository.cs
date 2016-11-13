@@ -4,10 +4,10 @@ namespace healthtracker.Repository
 {
     public interface IRepository<T>
     {
-        IEnumerable<T> List { get; }
-        void Add(T entity);
-        void Delete(T entity);
-        void Update(T entity);
+        List<T> GetAll();
+        T Add(T entity);
+        T Update(T entity);
         T GetById(int id);
+        void Delete(int id);
     }
 }
