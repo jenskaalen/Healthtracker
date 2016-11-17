@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace healthtracker.Model
 {
-    public class LogDay
+    public class SiteUser
     {
         public long Id { get; set; }
-        public List<LogEntry> LogEntries { get; set; } 
+        public string Username { get; set; }
+        public string Mail { get; set; }
+        public List<LogDay> LogDays { get; set; }
     }
 }
