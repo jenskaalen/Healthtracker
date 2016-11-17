@@ -9,10 +9,18 @@
     <div class="column is-half">
 
         <form *ngIf="currentPage == 'logging'">
+            <div *ngFor="let logType of logTypes" class="control">
+                <label [attr.for]="logType.name" class="label">{{ logType.name }}</label>
 
-            <div *ngFor="let item of data" class="control">
-                <label [attr.for]="item.type.name" class="label">{{ item.type.name }}</label>
-                <input type="text" class="input" [attr.name]="item.type.name" value="">
+                
+                <select  [attr.name]="logType.name" class="select" *ngIf="logType.id == 1">
+                    <option value="1">Really bad</option>
+                    <option value="2">Bad</option>
+                    <option value="3">Ok</option>
+                    <option value="4">Good</option>
+                    <option value="5">Really good</option>
+                </select>
+                <!--<input type="text" class="input" [attr.name]="logType.name" value="">-->
             </div>
 
             <p class="control">

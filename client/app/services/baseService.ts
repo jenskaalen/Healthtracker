@@ -13,7 +13,7 @@ export class BaseService<T> {
         .map(res => res.json());
     }
 
-    public getAll(): Observable<T> {
+    public getAll(): Observable<T[]> {
         return this.http.get(`${this.entityName}`)
         .map(res => res.json());
     }
