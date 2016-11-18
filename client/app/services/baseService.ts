@@ -4,32 +4,32 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class BaseService<T> {
-    public baseApi = '/api/'
+    public baseApi = 'http://localhost:49993/api/'
 
     constructor(protected entityName: string, protected http: Http) { }
 
     public getById(id): Observable<T> {
-        return this.http.get(`${this.entityName}?id=${id}`)
+        return this.http.get(`${this.baseApi}${this.entityName}?id=${id}`)
         .map(res => res.json());
     }
 
     public getAll(): Observable<T[]> {
-        return this.http.get(`${this.entityName}`)
+        return this.http.get(`${this.baseApi}${this.entityName}`)
         .map(res => res.json());
     }
 
     public delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.entityName}?id=${id}`)
+        return this.http.delete(`${this.baseApi}${this.entityName}?id=${id}`)
         .map(res => res.json());
 }
 
     public update(entity:T): Observable<T> {
-        return this.http.put(`${this.entityName}`, entity)
+        return this.http.put(`${this.baseApi}${this.entityName}`, entity)
         .map(res => res.json());
     }
 
     public add(entity:T): Observable<T> {
-        return this.http.post(`${this.entityName}`, entity)
+        return this.http.post(`${this.baseApi}${this.entityName}`, entity)
         .map(res => res.json());
     }
 }
