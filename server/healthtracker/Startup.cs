@@ -31,6 +31,7 @@ namespace healthtracker
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.AddCors();
             services.AddMvc();
             services.AddTransient<IConnectionFactory, ConnectionFactory>();
             services.AddTransient<ILogDayRepository, LogDayRepository>();
@@ -42,6 +43,8 @@ namespace healthtracker
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader());
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
