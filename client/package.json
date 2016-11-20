@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "debug": "webpack-dev-server"
   },
   "dependencies": {
     "@angular/common": "~2.0.1",

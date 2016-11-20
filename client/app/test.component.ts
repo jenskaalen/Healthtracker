@@ -13,6 +13,7 @@ export class TestComponent implements OnInit {
     testText: string = "this is the initial text";
     currentPage: string = 'logging';
     logTypes: LogType[];
+    logEntries: LogEntry[];
 
     data: LogEntry[];
 
@@ -32,14 +33,22 @@ export class TestComponent implements OnInit {
     ngOnInit(){        
         this.logTypeService.getAll().subscribe(res => {
             this.logTypes = res;
+
+            this.logEntries = res.map((type:LogType) => {
+                return { id: 0, type: type, value: null }
+            });
         });
 
         this.logDayService.getAll().subscribe(res => {
             // this.data = res.map(day => day.entries)
         });
+    }
 
-            // this.logTypes = [
-            //     { id: 1, name: 'Milk', dataType: DataType.Text },
-            //     { id: 1, name: 'Sleep', dataType: DataType.Text }]
+    createLogDay() {
+        var entry = {
+            entries: this.logEntries,
+            
+        };
+        this.logDayService.add(
     }
 }
