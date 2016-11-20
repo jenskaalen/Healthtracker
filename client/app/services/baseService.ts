@@ -29,6 +29,8 @@ export class BaseService<T> {
     }
 
     public add(entity:T): Observable<T> {
+        console.log('adding');
+        
         return this.http.post(`${this.baseApi}${this.entityName}`, entity)
         .map(res => res.json());
     }

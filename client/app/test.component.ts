@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { LogDay } from './model/LogDay';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { LogDayService } from "./services/logDayService";
 import { LogTypeService } from "./services/logTypeService";
 import { LogEntry } from './model/LogEntry';
@@ -9,15 +10,16 @@ import { LogType } from './model/LogType';
     selector: 'test-component',
     templateUrl: 'test.component.html'
 })
-export class TestComponent implements OnInit {
+export class TestComponent implements OnInit, AfterViewInit {
     testText: string = "this is the initial text";
     currentPage: string = 'logging';
     logTypes: LogType[];
     logEntries: LogEntry[];
+    registered: Date;
 
     data: LogEntry[];
 
-    constructor(private logTypeService: LogTypeService, private logDayService: LogDayService) {}
+    constructor(private logTypeService: LogTypeService, private logDayService: LogDayService) { }
 
     get headers(): string[] {
         return this.data.map(x => x.type.name)
@@ -30,11 +32,13 @@ export class TestComponent implements OnInit {
     //     ];
     // }
 
-    ngOnInit(){        
+    ngOnInit() {
+        this.registered = new Date();
+
         this.logTypeService.getAll().subscribe(res => {
             this.logTypes = res;
 
-            this.logEntries = res.map((type:LogType) => {
+            this.logEntries = res.map((type: LogType) => {
                 return { id: 0, type: type, value: null }
             });
         });
@@ -44,11 +48,21 @@ export class TestComponent implements OnInit {
         });
     }
 
+    ngAfterViewInit() {
+        this.registered = new Date();
+    }
+
     createLogDay() {
-        var entry = {
-            entries: this.logEntries,
-            
+        console.log('wry');
+
+        let day: LogDay = {
+            id: null,
+            logEntries: this.logEntries,
+            registered: this.registered
         };
-        this.logDayService.add(
+
+        this.logDayService.add(day).subscribe(res => {
+            alert('aa');
+        });;
     }
 }

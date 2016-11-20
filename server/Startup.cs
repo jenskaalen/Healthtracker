@@ -35,6 +35,7 @@ namespace healthtracker
             services.AddMvc();
             services.AddTransient<IConnectionFactory, ConnectionFactory>();
             services.AddTransient<ILogDayRepository, LogDayRepository>();
+            services.AddTransient<IRepository<LogDay>, LogDayRepository>();
             services.AddTransient<IRepository<LogType>, BaseRepository<LogType>>();
             var connection = @"Server=localhost;Database=HealthtrackerEF;Trusted_Connection=True;";
             services.AddDbContext<HealthtrackerContext>(options => options.UseSqlServer(connection));
@@ -43,7 +44,12 @@ namespace healthtracker
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader());
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
+            });
 
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();

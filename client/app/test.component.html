@@ -8,23 +8,36 @@
 <div class="columns is-centered">
     <div class="column is-half">
 
-        <form *ngIf="currentPage == 'logging'">
-            <div *ngFor="let logType of logTypes" class="control">
+        <form #form="ngForm" *ngIf="currentPage == 'logging'">
+
+
+            <label for="registered" class="label">Date</label>
+            <input class="input" type="date" name="registered" [(ngModel)]="registered">
+
+            <div *ngFor="let logType of logTypes;let index = index;" class="control">
+
+
                 <label [attr.for]="logType.name" class="label">{{ logType.name }}</label>
 
-                
-                <select  [attr.name]="logType.name" class="select" *ngIf="logType.id == 1">
-                    <option value="1">Really bad</option>
-                    <option value="2">Bad</option>
-                    <option value="3">Ok</option>
-                    <option value="4">Good</option>
-                    <option value="5">Really good</option>
+                {{ logType.name }}
+                <span class="select" *ngIf="logType.dataType == 1">
+                <select  *ngIf="logType.dataType == 1" [name]="logType.name" [(ngModel)]="logEntries[index].numberValue" >
+                    <option [ngValue]="1">Really bad</option>
+                    <option [ngValue]="2">Bad</option>
+                    <option [ngValue]="3">Ok</option>
+                    <option [ngValue]="4">Good</option>
+                    <option [ngValue]="5">Really good</option>
                 </select>
-                <!--<input type="text" class="input" [attr.name]="logType.name" value="">-->
+                </span>
+
+                <div *ngIf="logType.dataType == 0">
+                    <input class="input" type="text" [attr.name]="logType.name">
+                </div>
+
             </div>
 
             <p class="control">
-                <input type="submit" class="is-primary button is-pulled-right" name="submit" (submit)="createLogDay()" value="Save">
+                <button type="submit" class="is-primary button is-pulled-right" name="submit" (click)="createLogDay()"> Register </button>
             </p>
 
         </form>

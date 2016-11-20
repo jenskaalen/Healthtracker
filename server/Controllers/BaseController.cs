@@ -30,14 +30,14 @@ namespace healthtracker.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post(T entity)
+        public T Post(T entity)
         {
-            _repository.Add(entity);
+            return _repository.Add(entity);
         }
 
-        public void Put(T logtype)
+        public T Put(T logtype)
         {
-            _repository.Update(logtype);
+            return _repository.Update(logtype);
         }
 
         // DELETE api/values/5
