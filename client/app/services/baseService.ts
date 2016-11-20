@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class BaseService<T> {
-    public baseApi = 'http://localhost:49993/api/'
+    public baseApi = 'http://localhost:5000/api/'
 
     constructor(protected entityName: string, protected http: Http) { }
 

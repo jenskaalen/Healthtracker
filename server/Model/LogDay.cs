@@ -10,5 +10,6 @@ namespace healthtracker.Model
     {
         public long Id { get; set; }
         public List<LogEntry> LogEntries { get; set; } 
+        public DateTime? Registered { get; set; }
     }
 }
