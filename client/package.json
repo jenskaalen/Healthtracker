@@ -28,6 +28,7 @@
     "gulp-plumber": "^1.1.0",
     "raw-loader": "^0.5.1",
     "ts-helpers": "^1.1.1",
+    "ts-loader": "^1.2.2",
     "typescript": "^2.0.2",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2",
