@@ -11,26 +11,20 @@ import { LogType } from './model/LogType';
     templateUrl: 'test.component.html'
 })
 export class TestComponent implements OnInit, AfterViewInit {
-    testText: string = "this is the initial text";
     currentPage: string = 'logging';
     logTypes: LogType[];
     logEntries: LogEntry[];
     registered: Date;
+    loggedDays: LogDay[];
+    isLoading: boolean;
 
     data: LogEntry[];
 
     constructor(private logTypeService: LogTypeService, private logDayService: LogDayService) { }
 
     get headers(): string[] {
-        return this.data.map(x => x.type.name)
+        return this.data.map(x => x.logType.name)
     }
-
-    // get data(): LogEntry[] {
-    //     return [
-    //         { id: 1, type: this.logTypes[0], value: 'nah' },
-    //         { id: 2, type: this.logTypes[1], value: 'good' },
-    //     ];
-    // }
 
     ngOnInit() {
         this.registered = new Date();
@@ -39,12 +33,12 @@ export class TestComponent implements OnInit, AfterViewInit {
             this.logTypes = res;
 
             this.logEntries = res.map((type: LogType) => {
-                return { id: 0, type: type, value: null }
+                return { id: 0, logType: type, numberValue: 0 }
             });
         });
 
         this.logDayService.getAll().subscribe(res => {
-            // this.data = res.map(day => day.entries)
+            this.loggedDays = res.map(day => day)
         });
     }
 
@@ -56,13 +50,15 @@ export class TestComponent implements OnInit, AfterViewInit {
         console.log('wry');
 
         let day: LogDay = {
-            id: null,
+            id: 0,
             logEntries: this.logEntries,
             registered: this.registered
         };
 
-        this.logDayService.add(day).subscribe(res => {
-            alert('aa');
-        });;
+        this.logDayService.add(day).do(() => {
+            this.isLoading = true;
+        }).debounceTime(1500).subscribe(res => {
+                this.isLoading = false;
+            });;
     }
 }

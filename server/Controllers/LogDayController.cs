@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace healthtracker.Controllers
 {
     [Route("api/[controller]")]
-    public class LogDayController : BaseController<LogType>
+    public class LogDayController : BaseController<LogDay>
     {
-        public LogDayController(IRepository<LogType> repository) : base(repository)
+        public LogDayController(IRepository<LogDay> repository) : base(repository)
         {
         }
     }

@@ -2,6 +2,7 @@ import { LogType } from './LogType';
 
 export class LogEntry {
   id: number;
-  type: LogType;
-  value: any;
+  logType: LogType;
+  textValue?: string;
+  numberValue: number;
 }

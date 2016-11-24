@@ -30,12 +30,12 @@ namespace healthtracker.Controllers
 
         // POST api/values
         [HttpPost]
-        public T Post(T entity)
+        public T Post([FromBody]T entity)
         {
             return _repository.Add(entity);
         }
 
-        public T Put(T logtype)
+        public T Put([FromBody]T logtype)
         {
             return _repository.Update(logtype);
         }

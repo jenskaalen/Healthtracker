@@ -15,11 +15,9 @@
             <input class="input" type="date" name="registered" [(ngModel)]="registered">
 
             <div *ngFor="let logType of logTypes;let index = index;" class="control">
-
-
+                
                 <label [attr.for]="logType.name" class="label">{{ logType.name }}</label>
 
-                {{ logType.name }}
                 <span class="select" *ngIf="logType.dataType == 1">
                 <select  *ngIf="logType.dataType == 1" [name]="logType.name" [(ngModel)]="logEntries[index].numberValue" >
                     <option [ngValue]="1">Really bad</option>
@@ -31,13 +29,13 @@
                 </span>
 
                 <div *ngIf="logType.dataType == 0">
-                    <input class="input" type="text" [attr.name]="logType.name">
+                    <input [ngClass]="{ 'is-loading': isLoading }" *ngIf="logType.dataType == 0" class="input" type="text" [attr.name]="logType.name">
                 </div>
 
             </div>
 
             <p class="control">
-                <button type="submit" class="is-primary button is-pulled-right" name="submit" (click)="createLogDay()"> Register </button>
+                <button type="click" class="is-primary button is-pulled-right" name="submit" (click)="createLogDay()"> Register </button>
             </p>
 
         </form>
@@ -47,13 +45,15 @@
 
             <table class="table">
                 <thead>
-                    <tr>
+                    <!--<tr>
                         <th *ngFor="let header of headers">{{ header }}</th>
-                    </tr>
+                    </tr>-->
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of data">
-                        <td></td>
+                    <tr *ngFor="let day of loggedDays">
+                        <td *ngFor="let entry of day.logEntries">
+                            {{ entry.numberValue }}
+                        </td>
                     </tr>
                 </tbody>
             </table>

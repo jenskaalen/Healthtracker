@@ -35,8 +35,8 @@ namespace healthtracker
             services.AddMvc();
             services.AddTransient<IConnectionFactory, ConnectionFactory>();
             services.AddTransient<ILogDayRepository, LogDayRepository>();
-            services.AddTransient<IRepository<LogDay>, LogDayRepository>();
             services.AddTransient<IRepository<LogType>, BaseRepository<LogType>>();
+            services.AddTransient<IRepository<LogDay>, LogDayRepository>();
             var connection = @"Server=localhost;Database=HealthtrackerEF;Trusted_Connection=True;";
             services.AddDbContext<HealthtrackerContext>(options => options.UseSqlServer(connection));
         }

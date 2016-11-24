@@ -36,10 +36,12 @@ namespace healthtracker.Repository
 
             foreach (var result in entity.LogEntries)
             {
+                //_context.Attach(result).State = EntityState.Added;
                 _context.Attach(result.LogType).State = EntityState.Unchanged;
             }
             
             _user.LogDays.Add(entity);
+            _context.LogDays.Add(entity);
             
             _context.SaveChanges();
             return entity;
