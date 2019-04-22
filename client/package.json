@@ -1,36 +1,37 @@
 {
-  "scripts": {
-    "start": "webpack-dev-server",
-    "debug": "webpack-dev-server"
-  },
-  "dependencies": {
-    "@angular/common": "~2.0.1",
-    "@angular/compiler": "~2.0.1",
-    "@angular/core": "~2.0.1",
-    "@angular/forms": "~2.0.1",
-    "@angular/http": "~2.0.1",
-    "@angular/platform-browser": "~2.0.1",
-    "@angular/platform-browser-dynamic": "~2.0.1",
-    "bulma": "^0.2.3",
-    "core-js": "^2.4.1",
-    "font-awesome": "^4.7.0",
-    "reflect-metadata": "^0.1.3",
-    "rxjs": "5.0.0-beta.12",
-    "systemjs": "0.19.27",
-    "zone.js": "^0.6.23"
-  },
-  "devDependencies": {
-    "@types/core-js": "^0.9.34",
-    "@types/node": "^6.0.46",
-    "angular2-template-loader": "^0.5.0",
-    "awesome-typescript-loader": "^3.0.0-beta.3",
-    "gulp": "^3.9.1",
-    "gulp-plumber": "^1.1.0",
-    "raw-loader": "^0.5.1",
-    "ts-helpers": "^1.1.1",
-    "typescript": "^2.0.2",
-    "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.16.2",
-    "webpack-stream": "^3.2.0"
-  }
+    "dependencies": {
+        "@angular/common": "~2.4.0",
+        "@angular/compiler": "~2.4.0",
+        "@angular/core": "~2.4.0",
+        "@angular/forms": "~2.4.0",
+        "@angular/http": "~2.4.0",
+        "@angular/platform-browser": "~2.4.0",
+        "@angular/platform-browser-dynamic": "~2.4.0",
+        "bulma": "^0.2.3",
+        "font-awesome": "^4.7.0",
+        "core-js": "^2.4.1",
+        "rxjs": "5.0.1",
+        "zone.js": "^0.7.4"
+    },
+    "devDependencies": {
+        "@types/core-js": "^0.9.35",
+        "@types/jquery": "^2.0.40",
+        "@types/node": "^7.0.5",
+        "angular2-template-loader": "^0.5.0",
+        "awesome-typescript-loader": "^3.0.4",
+        "concurrently": "^3.3.0",
+        "inline-source-map": "^0.6.2",
+        "json-server": "^0.14.2",
+        "raw-loader": "^0.5.1",
+        "ts-helpers": "^1.1.1",
+        "tslint": "^3.15.1",
+        "typescript": "2.1.6",
+        "typings": "^1.3.2",
+        "webpack": "^2.2.1",
+        "webpack-dev-server": "^2.4.1"
+    },
+    "scripts": {
+        "start": "webpack-dev-server",
+        "debug": "concurrently \"webpack-dev-server -d\" \"json-server mockdb.json --watch\" "
+    }
 }

@@ -1,0 +1,111 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/node_modules/bulma/css/bulma.css">
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <section class="hero is-dark">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Log your day
+                </h1>
+                <!-- <h2 class="subtitle">
+                              Primary subtitle
+                            </h2> -->
+            </div>
+        </div>
+    </section>
+    <div id="app" class="section">
+        <div class="columns">
+            <div class="column"></div>
+            <div class="column is-one-third">
+
+                <form class="">
+                    <div class="field">
+                        <label class="label" for="">Date</label>
+                        <div class="control">
+                            <input class="input" v-model="chosenDate" type="date" placeholder="Todays date (placeholder)">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="feeling">How well do you feel?</label>
+                        <div class="control">
+                            <div class="select">
+                                <select class="" v-model="chosenFeeling" name="feeling" id="feelingSelect">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="field">
+                        <label class="label" for="">Activity</label>
+                        <div class="controll">
+                            <textarea v-model="chosenActivity" name="activityArea" class="textarea" id="" cols="30" rows="2"></textarea>
+                        </div>
+                        <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
+                    </div>
+                    <div class="field">
+                        <label class="label" for="">Comment</label>
+                        <div class="controll">
+                            <textarea v-model="chosenComment" name="commentArea" class="textarea" id="" cols="30" rows="6"></textarea>
+                        </div>
+                        <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
+                    </div>
+
+                </form>
+                <div class="field">
+                    <button class="button is-dark is-pulled-right" v-on:click="postLog">Submit</button>
+                </div>
+            </div>
+
+            <div class="column"></div>
+
+        </div>
+
+        <div class="" id="logViewer">
+            <div class="field">
+                <button class="button is-info" v-on:click="getEntries">View logs</button>
+            </div>
+
+            <table class="table is-striped is-bordered is-hoverable">
+                <thead>
+                    <th>Date</th>
+                    <th>Feeling</th>
+                    <th>Activity</th>
+                    <th>Comment</th>
+                    <th></th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr v-for="entry in orderedLogs" class="">
+                        <td>{{ entry.date }}</td>
+                        <td>{{ entry.feeling }}</td>
+                        <td>{{ entry.activity }}</td>
+                        <td>{{ entry.comment }}</td>
+                        <td><button class="button" v-on:click="editLog(entry)">Edit</button></td>
+                        <td><button class="button" v-on:click="deleteLog(entry)">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/scripts.js"></script>
+</body>
+
+</html>

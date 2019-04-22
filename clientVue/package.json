@@ -1,0 +1,23 @@
+{
+    "name": "clientVue",
+    "version": "1.0.0",
+    "description": "",
+    "main": "scripts.js",
+    "dependencies": {
+        "bulma": "^0.7.4",
+        "concurrently": "^4.1.0",
+        "json-server": "^0.14.2",
+        "ky": "^0.9.1",
+        "lodash": "^4.17.11"
+    },
+    "devDependencies": {
+        "jshint": "^2.10.2"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "json-server": "json-server db.json --watch ",
+        "start": "concurrently \"lite-server\" \"json-server db.json --watch --port 4003\" "
+    },
+    "author": "",
+    "license": "ISC"
+}
