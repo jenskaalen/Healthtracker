@@ -1,4 +1,0 @@
-
-publish
-login
-serverside

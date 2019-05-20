@@ -25,13 +25,6 @@
       "id": 11
     },
     {
-      "feeling": 2,
-      "date": "2019-04-13",
-      "comment": "poo",
-      "activity": "poo monster",
-      "id": 12
-    },
-    {
       "feeling": "4",
       "date": "2019-04-16",
       "comment": "Mye press og smerte i hodet. \nBokset 4 runder. Sauna. Ble en del bedre etter nakke-yoga. Spilte mye.",
@@ -84,18 +77,18 @@
       "id": 21
     },
     {
-      "feeling": 5,
-      "date": "2019-04-21",
-      "comment": "",
-      "activity": "",
-      "id": 22
-    },
-    {
       "feeling": "7",
       "date": "2019-04-22",
       "comment": "sov ok. våkna dramatisk av tog. dorsk, men fungerer greit. yoga gikk ok. ",
       "activity": "yoga",
       "id": 23
+    },
+    {
+      "feeling": 5,
+      "date": "2019-04-14",
+      "comment": "så ufc, men var vanskelig å slappe av/fokusere. helt apatisk til to av beste kampene i nylig historie",
+      "activity": "",
+      "id": 24
     }
   ]
 }
