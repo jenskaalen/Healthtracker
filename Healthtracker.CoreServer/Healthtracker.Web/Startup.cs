@@ -45,11 +45,16 @@ namespace Healthtracker.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             
             services.AddAuthentication().AddGoogle(opts => {
-                opts.ClientId = Configuration["Authentication:Google:ClientId"];
-                opts.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                opts.ClientId = "615623063152-5g5gttg677q6fn241magded5vm8gg4q2.apps.googleusercontent.com";
+                //Configuration["Authentication:Google:ClientId"];
+                opts.ClientSecret = "Mb6w4UwEcptbSbXPD8tHXQjD";
+                //Configuration["Authentication:Google:ClientSecret"];
                 opts.CallbackPath = "/signin-google";
             }
             );
+
+            
+       
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

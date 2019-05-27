@@ -29,7 +29,7 @@ namespace UtilityTools
                 using (var db = new LiteDatabase(@"logdata.db"))
                 {
                     var col = db.GetCollection<Log>("logs");
-                    //col.InsertBulk(logs);
+                    col.InsertBulk(logs);
                     var all = col.FindAll().ToList();
                     Console.WriteLine($"counti s {all.Count()}");
                 }
