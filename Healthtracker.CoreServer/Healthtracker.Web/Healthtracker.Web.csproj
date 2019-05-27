@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <None Update="Data\logdata.db">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

@@ -1,22 +1,4 @@
-﻿[
-    {
-      "feeling": 2,
-      "date": "2019-04-13T10:29:35.896Z",
-      "comment": "poo",
-      "id": 3
-    },
-    {
-      "feeling": 2,
-      "date": "2019-04-13T10:29:35.896Z",
-      "comment": "poo",
-      "id": 5
-    },
-    {
-      "feeling": 2,
-      "date": "2019-04-13",
-      "comment": "poo",
-      "id": 10
-    },
+[
     {
       "feeling": "6",
       "date": "2019-04-13",
@@ -42,13 +24,6 @@
       "id": 15
     },
     {
-      "feeling": 5,
-      "date": "2019-04-18",
-      "comment": "asdasd reee",
-      "activity": "ree",
-      "id": 17
-    },
-    {
       "feeling": "6",
       "date": "2019-04-18",
       "comment": "Sov kanskje 6 timer. Pusteproblemer og var bare ikke søvnig. Føler meg grei ellers. Tror jeg skal ta det litt rolig i dag. \nMerker dog at jeg kan skrive og tenke mye. \n.. Måtte bryte yoga-workout ved bear-crawl - press i hodet. ",
@@ -64,7 +39,7 @@
     {
       "feeling": "7",
       "date": "2019-04-20",
-      "comment": "Tvinga meg til ekstra med søvn. Fin form. Mekka med PC i dag. Boksing og (avansert) yoga. Sliten mot kvelden",
+      "comment": "Tvinga meg til ekstra med søvn. Fin form. Mekka med PC i dag. Boksing og (avansert) yoga. Sliten mot kvelden. Tror jeg spiste laks og begynte med maskinlæring. Var veldig konsentrert og rolig",
       "activity": "Boksing, yoga (balanse-greier), pc-mekk",
       "id": 20
     },
@@ -78,8 +53,8 @@
     {
       "feeling": "7",
       "date": "2019-04-22",
-      "comment": "sov ok. våkna dramatisk av tog. dorsk, men fungerer greit. yoga gikk ok. ",
-      "activity": "yoga",
+      "comment": "sov ok. våkna dramatisk av tog. dorsk, men fungerer greit. yoga gikk ok. vaaarmt - 20 grader.",
+      "activity": "yoga, boksing",
       "id": 23
     },
     {
@@ -88,5 +63,208 @@
       "comment": "så ufc, men var vanskelig å slappe av/fokusere. helt apatisk til to av beste kampene i nylig historie",
       "activity": "",
       "id": 24
+    },
+    {
+      "feeling": "7",
+      "date": "2019-04-23",
+      "comment": "ble messa opp av yoga ved bear crawl. lyden ble plutselig høy og jeg gassa på... ",
+      "activity": "yoga, boksing",
+      "id": 25
+    },
+    {
+      "feeling": "7",
+      "date": "2019-04-24",
+      "comment": "litt bonkers dag. begynte å strekke på latsene og lurer på om det hjelpa med hørsel",
+      "activity": "styrke, boksing 2x6 min, OO",
+      "id": 27
+    },
+    {
+      "feeling": "7",
+      "date": "2019-04-25",
+      "comment": "sov bare 6 timer i natt også, men doppet litt. grei form ellers. vanskelig å konsentrere seg om ML. ikke særlig gira på noen form for spilling",
+      "activity": "boksing, yoga",
+      "id": 28
+    },
+    {
+      "feeling": "7",
+      "date": "2019-04-25",
+      "comment": "sov bare 6 timer i natt også, men doppet litt. grei form ellers. vanskelig å konsentrere seg om ML. ikke særlig gira på noen form for spilling",
+      "activity": "boksing, yoga",
+      "id": 29
+    },
+    {
+      "feeling": "6",
+      "date": "2019-04-26",
+      "comment": "spilte gjennom min første overwatch kamp mot bots. tok det litt rolig med boksinga",
+      "activity": "boksing, styrke",
+      "id": 30
+    },
+    {
+      "feeling": "8",
+      "date": "2019-04-27",
+      "comment": "sov ekstra mye. mekka mye, og tungt, med pc. jekka opp boksing til 4 runder igjen",
+      "activity": "boksing, pc-mekk",
+      "id": 31
+    },
+    {
+      "feeling": "7",
+      "date": "2019-04-28",
+      "comment": "tester med bacopa og phosphatisylderin. ble definitivt roligere. greide ikke å konsentrere meg hardere, men ble lettere å skumlese",
+      "activity": "",
+      "id": 32
+    },
+    {
+      "feeling": "6",
+      "date": "2019-04-29",
+      "comment": "sov dårlig, men det kan være varmen. eller pillene. dunno. føler meg ok, men kanskje ikke helt topp.  tok fosfat. i dag også. mener det har en definitivt virkning på inntrykksensitivitet. \nOO gikk veldig fint og greit.",
+      "activity": "boksing, styrke",
+      "id": 34
+    },
+    {
+      "feeling": "6",
+      "date": "2019-04-30",
+      "comment": "sov dårlig/lite, maks 6 timer. plages med øya. tok fosfat. i dag også.",
+      "activity": "yoga, boksing",
+      "id": 35
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-01",
+      "comment": "sov ca 7.5 timer. føler meg bra",
+      "activity": "boksing, styrke",
+      "id": 36
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-02",
+      "comment": "sov ok-minus. ",
+      "activity": "yoga, boksing, OO",
+      "id": 38
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-03",
+      "comment": "sov ok. 7ish timer. ny makspuls ved VR i dag. var sloppy og tok ikke sauna eller hvitløk på kvelden.",
+      "activity": "boksing, styrke",
+      "id": 39
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-04",
+      "comment": "sov ok. grei dag. greide ikke å få puls over 130 i dag. ",
+      "activity": "boksing, styrke",
+      "id": 40
+    },
+    {
+      "feeling": "6",
+      "date": "2019-05-06",
+      "comment": "ganske lat dag, sov utpå. overtenkte mye med suki og NAS. ",
+      "activity": "styrke, dusj, hårklipp m maskin",
+      "id": 41
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-06",
+      "comment": "sov ok. kjenner meg litt tung. glemte sauna",
+      "activity": "styrke, boksing",
+      "id": 42
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-07",
+      "comment": "jogget for første gang",
+      "activity": "styrke, boksing, sauna, dusj, OO, jogging",
+      "id": 43
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-08",
+      "comment": "sov 8 timer. føler meg ok. litt småtung i kroppen",
+      "activity": "jogging",
+      "id": 44
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-09",
+      "comment": "en litt roligere dag etter to dager med jogging. \nsnakket MYE med suki. programmerte mye også.\nnb: pulsen har steget jevnt og trutt de siste dagene. \nhar også brukt fosfatiselderin jevnlig i det siste.",
+      "activity": "styrke, litt boksing, OO",
+      "id": 45
+    },
+    {
+      "feeling": "6",
+      "date": "2019-05-10",
+      "comment": "sov ca 6 timer. tok det litt roligere i dag. følte meg ikke supah dupah",
+      "activity": "boksing, styrke",
+      "id": 46
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-11",
+      "comment": "sov ekstra lenge. følte meg ok. jogga litt saktere enn tidligere men ingen smerter.",
+      "activity": "jogging, styrke, litt boksing",
+      "id": 47
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-12",
+      "comment": "sov utpå litt ekstra i dag også. var i boden og leta etter warhammer ting.",
+      "activity": "leting i boden",
+      "id": 48
+    },
+    {
+      "feeling": "6",
+      "date": "2019-05-14",
+      "comment": "youtube-cardio. boksa litt under 4 runder. fikk ikke kjempehøy puls på noen av øktene. \npreserte lite på programmering, etc. i dag.",
+      "activity": "OO, boksing, cardio",
+      "id": 49
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-13",
+      "comment": "mekka mye med NAS-oppsett (hver dag siden fredag igrunn)\n",
+      "activity": "cardio, styrke",
+      "id": 50
+    },
+    {
+      "feeling": "5",
+      "date": "2019-05-16",
+      "comment": "mye pusteproblemer når jeg sov. føler meg tung i beina",
+      "activity": "",
+      "id": 51
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-15",
+      "comment": "mye bråk. måtte stå en del i gangen for å få fred. \nmyeee programmering med maskinlæring. tror det ble en litt rough dag.\nså en del serie med lillian",
+      "activity": "boksing, styrke",
+      "id": 52
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-18",
+      "comment": "sov ok. gikk til bunnpris og henta pakke. generelt rolig med film på kvelden.",
+      "activity": "fiksa basestasjoner, styrke, gåtur",
+      "id": 53
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-17",
+      "comment": "tok lakrisrot. ble litt svimmel på gymmet, men gikk ellers ok. ",
+      "activity": "litt mark på gymmet, boksing",
+      "id": 54
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-19",
+      "comment": "sov ok. slapp i dag. tok lakrisrot og stakk på gymmet.",
+      "activity": "boksing, styrke på gymmet",
+      "id": 55
+    },
+    {
+      "feeling": "7",
+      "date": "2019-05-18",
+      "comment": "gikk til bunnpris og henta pakke. generelt rolig med film på kvelden.",
+      "activity": "styrke, gåtur",
+      "id": 56
     }
   ]
