@@ -1,4 +1,5 @@
 ﻿/*jshint esversion: 6 */
+const dateFormatValue = 'YYYY-MM-DD';
 
 Date.prototype.toDateInputValue = (function() {
     var local = new Date(this);
@@ -23,7 +24,7 @@ var app = new Vue({
     data: data,
     filters: {
         dateFormat: function(value) {
-            return moment(value).format('DD-MM-YYYY');
+            return moment(value).format(dateFormatValue);
         }
     },
     methods: {
@@ -95,9 +96,11 @@ var app = new Vue({
         editLog: function(log) {
             this.chosenComment = log.comment;
             this.chosenActivity = log.activity;
-            this.chosenDate = log.date;
+            this.chosenDate = moment(log.date).format(dateFormatValue);
             this.chosenId = log.id;
             this.chosenFeeling = log.feeling;
+            var elmnt = document.getElementById("logForm");
+            elmnt.scrollIntoView();
         },
         deleteLog: function(log) {
             var url = '/api/log/' + log.id;

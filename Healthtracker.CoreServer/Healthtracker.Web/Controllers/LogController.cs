@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Healthtracker.Web.Data;
 using Healthtracker.Web.Model;
+using Healthtracker.Web.Repositories;
 using LiteDB;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,81 +17,77 @@ namespace Healthtracker.Web.Controllers
     public class LogController : ControllerBase
     {
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly ILogRepository _logRepository;
+        private string UserId => User.Identity.Name;
 
-        public LogController(IHostingEnvironment hostingEnvironment)
+        public LogController(IHostingEnvironment hostingEnvironment, ILogRepository logRepository)
         {
             this._hostingEnvironment = hostingEnvironment;
+            this._logRepository = logRepository;
         }
 
         // GET: api/Log
         [HttpGet]
         public IEnumerable<Log> Get()
         {
-            //TODO: get root path
-            using (var db = new LiteDatabase(_hostingEnvironment.WebRootPath + @"\..\Data\logdata.db"))
-            {
-                string userId = User.Identity.Name;
-                var col = db.GetCollection<Log>("logs");
-                return col.Find(x => x.UserId == userId).ToList();
-                //return col.FindAll();
-            }
+            return _logRepository.GetAll(UserId);
+            ////TODO: get root path
+            //using (var db = new LiteDatabase(_hostingEnvironment.WebRootPath + @"\..\Data\logdata.db"))
+            //{
+            //    string userId = User.Identity.Name;
+            //    var col = db.GetCollection<Log>("logs");
+            //    return col.Find(x => x.UserId == userId).ToList();
+            //    //return col.FindAll();
+            //}
         }
 
         // GET: api/Log/5
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
         {
-            return "value";
+            throw new NotImplementedException();
         }
 
         // POST: api/Log
         [HttpPost]
         public void Post([FromBody] Log log)
         {
-            //TODO: get root path
-            using (var db = new LiteDatabase(_hostingEnvironment.WebRootPath + @"\..\Data\logdata.db"))
-            {
-                string userId = User.Identity.Name;
-                var col = db.GetCollection<Log>("logs");
-                log.UserId = userId;
-                col.Insert(log);
-            }
+            log.UserId = UserId;
+            _logRepository.Update(log);
         }
 
         // PUT: api/Log/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Log log)
         {
+            log.UserId = UserId;
+            //TODO: theres no real update handling in ravendb
+            _logRepository.Update(log);
+
             //TODO: get root path
-            using (var db = new LiteDatabase(_hostingEnvironment.WebRootPath + @"\..\Data\logdata.db"))
-            {
-                string userId = User.Identity.Name;
-                var col = db.GetCollection<Log>("logs");
-                var existingLog = col.Find(q => q.Id == id && q.UserId == userId).FirstOrDefault();
+            //using (var db = new LiteDatabase(_hostingEnvironment.WebRootPath + @"\..\Data\logdata.db"))
+            //{
+            //    string userId = User.Identity.Name;
+            //    var col = db.GetCollection<Log>("logs");
+            //    var existingLog = col.Find(q => q.Id == id && q.UserId == userId).FirstOrDefault();
 
-                if (existingLog == null)
-                    throw new UnauthorizedAccessException();
+            //    if (existingLog == null)
+            //        throw new UnauthorizedAccessException();
 
-                log.UserId = userId;
+            //    log.UserId = userId;
 
-                bool updated = col.Update(log);
+            //    bool updated = col.Update(log);
 
-                if (!updated)
-                    throw new Exception("Didnt find log to update");
-            }
+            //    if (!updated)
+            //        throw new Exception("Didnt find log to update");
+            //}
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            //TODO: get root path
-            using (var db = new LiteDatabase(_hostingEnvironment.WebRootPath + @"\..\Data\logdata.db"))
-            {
-                string userId = User.Identity.Name;
-                var col = db.GetCollection<Log>("logs");
-                col.Delete(q => q.Id == id && q.UserId == userId);
-            }
+            _logRepository.Delete(id);
         }
     }
 }
