@@ -13,6 +13,7 @@ using Healthtracker.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.Google;
+using Healthtracker.Web.Repositories;
 
 namespace Healthtracker.Web
 {
@@ -53,8 +54,8 @@ namespace Healthtracker.Web
             }
             );
 
-            
-       
+            services.AddSingleton(typeof(ILogRepository), typeof(RavenDbRepository));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
