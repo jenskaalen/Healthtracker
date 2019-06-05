@@ -10,18 +10,19 @@
             <h1 class="title">
                 Log your day
             </h1>
-            <!-- <h2 class="subtitle">
-                          Primary subtitle
-                        </h2> -->
         </div>
     </div>
 </section>
+
 <div id="app" class="section">
     <div class="columns">
         <div class="column"></div>
         <div class="column is-one-third">
 
-            <form class="" id="logForm">
+            
+
+            <div v-if="logEditorOpen">
+            <form class="" id="logForm" >
                 <div class="field">
                     <label class="label" for="">Date</label>
                     <div class="control">
@@ -64,19 +65,21 @@
                 </div>
 
             </form>
-            <div class="field">
-                <button class="button is-dark is-pulled-right" v-on:click="postLog">Submit</button>
-            </div>
+                <div class="field">
+                    <button class="button is-info is-pulled-right" v-on:click="postLog">Submit</button>
+                </div>
+                </div>
         </div>
 
-        <div class="column"></div>
+        <div class="column">
+            <div class="field is-pulled-right" v-if="!logEditorOpen">
+                <button class="button is-info"  v-on:click="logEditorOpen=true">Add log</button>
+            </div>
+</div>
 
     </div>
 
     <div class="" id="logViewer">
-        <div class="field">
-            <button class="button is-info" v-on:click="getEntries">View logs</button>
-        </div>
 
         <table class="table is-striped is-bordered is-hoverable">
             <thead>
@@ -101,3 +104,11 @@
         </table>
     </div>
 </div>
+
+<template>
+    <form @@submit.prevent="submit" class="vld-parent" ref="formContainer">
+        <!-- your form inputs goes here-->
+        <label><input type="checkbox" v-model="fullPage">Full page?</label>
+        <button type="submit">Login</button>
+    </form>
+</template>

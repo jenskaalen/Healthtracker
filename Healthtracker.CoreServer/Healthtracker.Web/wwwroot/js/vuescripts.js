@@ -2,6 +2,12 @@
 const dateFormatValue = 'YYYY-MM-DD';
 import Toasted from 'vue-toasted';
 
+import Loading from 'vue-loading-overlay';
+// Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.css';
+
+import '../css/site.css';
+
 
 Date.prototype.toDateInputValue = (function() {
     var local = new Date(this);
@@ -11,6 +17,7 @@ Date.prototype.toDateInputValue = (function() {
 
 
 Vue.use(Toasted, { position: 'bottom-right', duration: 3000 })
+Vue.use(Loading, { color: '#209cee' });
 
 var data = {
     message: 'Hello Vue!',
@@ -21,7 +28,9 @@ var data = {
     chosenActivity: '',
     chosenComment: '',
     chosenId: 0,
-    logEntries: []
+    logEntries: [],
+    fullPage: true,
+    logEditorOpen: false
 };
 
 var app = new Vue({
@@ -34,6 +43,12 @@ var app = new Vue({
     },
     methods: {
         getEntries: function() {
+            let loader = this.$loading.show({
+                // Optional parameters
+                container: this.fullPage ? null : this.$refs.formContainer,
+                canCancel: true,
+                onCancel: this.onCancel,
+            });
 
             const url = '/api/log';
             fetch(url)
@@ -49,6 +64,7 @@ var app = new Vue({
                     // });
 
                     this.logEntries = response;
+                    loader.hide();
                 }).catch(() => {
                     alert('uh-oh, something went wrong');
                 });
@@ -98,8 +114,9 @@ var app = new Vue({
                     this.getEntries();
                     var actionName = method === "POST" ? 'added' : 'updated';
                     this.$toasted.show('Log ' + actionName + '!');
+                    this.logEditorOpen = false;
                 }).catch((error) => {
-                    alert('uh-oh, something went wrong: ' + error);
+                    alert('Uh-oh, something went wrong: ' + error);
                 });
         },
         editLog: function(log) {
@@ -108,8 +125,13 @@ var app = new Vue({
             this.chosenDate = moment(log.date).format(dateFormatValue);
             this.chosenId = log.id;
             this.chosenFeeling = log.feeling;
-            var elmnt = document.getElementById("logForm");
-            elmnt.scrollIntoView();
+            this.logEditorOpen = true;
+
+            setTimeout(() => {
+
+                var elmnt = document.getElementById("logForm");
+                elmnt.scrollIntoView();
+            }, 500);
         },
         deleteLog: function(log) {
             var url = '/api/log/' + log.id;
@@ -137,6 +159,9 @@ var app = new Vue({
         orderedLogs: function() {
             return _.orderBy(this.logEntries, 'date');
         }
+    },
+    created: function() {
+        this.getEntries();
     }
 });
 
