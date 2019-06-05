@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-Healthtracker.Web-A7E02D62-BF25-4D04-8C36-995FAF55BE1F</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Remove="Data\logdata.json" />
   </ItemGroup>

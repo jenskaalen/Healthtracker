@@ -9,6 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "toastify-js": "^1.5.0",
     "vue-toasted": "^1.1.27"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.2"
   }
 }

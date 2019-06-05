@@ -25,9 +25,12 @@ namespace Healthtracker.Web.Repositories
         {
             using (var session = _store.OpenSession())
             {
-                log.DocumentId = $"logs/{log.Id}";
+                //if (log.Id > 0)
+                //    SetDocumentIdFromId(log);
 
-                var existingLog = session.Load<Log>(log.DocumentId);
+                //var existingLog = log.DocumentId != null ? session.Load<Log>(log.DocumentId) : null;
+
+                Log existingLog = log.Id > 0 ? session.Query<Log>().Where(x => x.Id == log.Id).FirstOrDefault() : null;
 
                 if (existingLog != null)
                 {
@@ -47,13 +50,18 @@ namespace Healthtracker.Web.Repositories
             return log;
         }
 
+        private static void SetDocumentIdFromId(Log log)
+        {
+            log.DocumentId = $"logs/{log.Id}-A";
+        }
+
         public void Delete(int id)
         {
             using (var session = _store.OpenSession())
             {
-                var log = new Log() { Id = id };
+                Log existingLog = session.Query<Log>().Where(x => x.Id == id).FirstOrDefault();
 
-                session.Delete(log);
+                session.Delete(existingLog);
                 session.SaveChanges();
             }
         }
