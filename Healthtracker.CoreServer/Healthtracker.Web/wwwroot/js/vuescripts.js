@@ -1,11 +1,16 @@
 ﻿/*jshint esversion: 6 */
 const dateFormatValue = 'YYYY-MM-DD';
+import Toasted from 'vue-toasted';
+
 
 Date.prototype.toDateInputValue = (function() {
     var local = new Date(this);
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
     return local.toJSON().slice(0, 10);
 });
+
+
+Vue.use(Toasted, { position: 'bottom-right', duration: 3000 })
 
 var data = {
     message: 'Hello Vue!',
@@ -29,6 +34,7 @@ var app = new Vue({
     },
     methods: {
         getEntries: function() {
+
             const url = '/api/log';
             fetch(url)
                 .then(response => {
@@ -47,6 +53,7 @@ var app = new Vue({
                     alert('uh-oh, something went wrong');
                 });
         },
+        //TODO: delete?
         postMessage: function() {
             this.messages.push(this.message);
             this.message = "";
@@ -89,6 +96,8 @@ var app = new Vue({
                     this.chosenDate = null;
                     this.chosenId = 0;
                     this.getEntries();
+                    var actionName = method === "POST" ? 'added' : 'updated';
+                    this.$toasted.show('Log ' + actionName + '!');
                 }).catch((error) => {
                     alert('uh-oh, something went wrong: ' + error);
                 });
@@ -117,11 +126,11 @@ var app = new Vue({
                 .then(response => {
                     // data.logEntries = data.logEntries.filter(item => item !== log);
                     console.log('deleted log');
+                    this.$toasted.show('Log deleted!');
                 }).catch((error) => {
                     console.log(error);
                     alert('uh-oh, something went wrong');
-                });;
-
+                });
         }
     },
     computed: {
@@ -130,3 +139,6 @@ var app = new Vue({
         }
     }
 });
+
+
+// app.use(Toasted);
