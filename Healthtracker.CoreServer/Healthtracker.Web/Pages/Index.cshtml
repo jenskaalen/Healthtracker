@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home page";
 }
 
-<section class="hero is-dark">
+@*<section class="hero is-dark">
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
@@ -12,7 +12,7 @@
             </h1>
         </div>
     </div>
-</section>
+</section>*@
 
 <div id="app" class="section">
     <div class="columns">
@@ -81,24 +81,23 @@
 
     <div class="" id="logViewer">
 
-        <table class="table is-striped is-bordered is-hoverable">
+        <table class="table is-striped is-bordered is-hoverable logEntryGrid">
             <thead>
             <th>Date</th>
             <th>Feeling</th>
             <th>Activity</th>
             <th>Comment</th>
-            <th></th>
-            <th></th>
+            <th>Edit</th>
+            <th>Delete</th>
             </thead>
             <tbody>
-                {{ }}
-                <tr v-for="entry in orderedLogs" class="">
+                <tr v-for="entry in orderedLogs" class="" v-on:click="selectedLog=entry" v-bind:class="{ selectedRow: entry == selectedLog }">
                     <td>{{ entry.date | dateFormat }}</td>
                     <td>{{ entry.feeling }}</td>
                     <td>{{ entry.activity }}</td>
                     <td>{{ entry.comment }}</td>
-                    <td><button class="button" v-on:click="editLog(entry)">Edit</button></td>
-                    <td><button class="button" v-on:click="deleteLog(entry)">Delete</button></td>
+                    <td ><button v-if="entry == selectedLog" class="button" v-on:click="editLog(entry)"><i class="fas fa-edit"></i> </button></td>
+                    <td ><button v-if="entry == selectedLog" class="button" v-on:click="deleteLog(entry)"><i class="fas fa-trash"></i> </button></td>
                 </tr>
             </tbody>
         </table>

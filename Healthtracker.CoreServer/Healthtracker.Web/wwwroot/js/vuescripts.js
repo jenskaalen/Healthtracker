@@ -8,6 +8,8 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 
 import '../css/site.css';
 
+import '../css/sitestyle.scss';
+
 
 Date.prototype.toDateInputValue = (function() {
     var local = new Date(this);
@@ -30,7 +32,8 @@ var data = {
     chosenId: 0,
     logEntries: [],
     fullPage: true,
-    logEditorOpen: false
+    logEditorOpen: false,
+    selectedLog: {}
 };
 
 var app = new Vue({
@@ -76,8 +79,14 @@ var app = new Vue({
         },
         postLog: function() {
             var method = this.chosenId !== 0 ? 'PUT' : 'POST';
-
             const url = this.chosenId !== 0 ? '/api/log/' + this.chosenId : '/api/log';
+
+            let loader = this.$loading.show({
+                // Optional parameters
+                container: this.fullPage ? null : this.$refs.formContainer,
+                canCancel: true,
+                onCancel: this.onCancel,
+            });
 
             let data = {
                     feeling: this.chosenFeeling,
@@ -105,18 +114,22 @@ var app = new Vue({
                     return response;
                 })
                 .then(response => {
-                    // console.log('Success:', JSON.stringify(response));
                     this.chosenComment = null;
                     this.chosenActivity = null;
                     this.chosenFeeling = null;
                     this.chosenDate = null;
                     this.chosenId = 0;
-                    this.getEntries();
                     var actionName = method === "POST" ? 'added' : 'updated';
                     this.$toasted.show('Log ' + actionName + '!');
                     this.logEditorOpen = false;
+                    loader.hide();
+
+                    setTimeout(() => {
+                        this.getEntries();
+                    }, 1000);
                 }).catch((error) => {
                     alert('Uh-oh, something went wrong: ' + error);
+                    loader.hide();
                 });
         },
         editLog: function(log) {
@@ -149,6 +162,7 @@ var app = new Vue({
                     // data.logEntries = data.logEntries.filter(item => item !== log);
                     console.log('deleted log');
                     this.$toasted.show('Log deleted!');
+                    this.getEntries();
                 }).catch((error) => {
                     console.log(error);
                     alert('uh-oh, something went wrong');
