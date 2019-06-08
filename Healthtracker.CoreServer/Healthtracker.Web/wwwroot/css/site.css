@@ -6,6 +6,14 @@ body {
     padding-bottom: 20px;
 }
 
+.logEntryGrid tr {
+    cursor: pointer;
+}
+
+.selectedRow {
+    font-weight: 550;
+}
+
 
 /* Wrapping element */
 

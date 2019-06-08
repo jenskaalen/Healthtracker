@@ -6,12 +6,12 @@
     <title>@ViewData["Title"] - Healthtracker.Web</title>
 
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
           asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
           asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />*@
+    <link rel="stylesheet" href="~/css/main.bundle.css" asp-append-version="true" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     @* TODO: lodash to npm *@
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
@@ -19,33 +19,30 @@
     <script src="https://kit.fontawesome.com/edd4025de2.js"></script>
 
     <script src="~/moment.js"></script>
-    <script src="~/js/notify.js"></script>
 </head>
 <body>
     <nav class="navbar">
         <div class="container">
-            @*<div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-page="/Index" class="navbar-brand">Healthtracker.Web</a>
-            </div>*@
-            <div class="navbar-menu">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="https://bulma.io">
+                    <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+                </a>
+            </div>
+
+            <div class="navbar-menu" id="healthtrackerMenu">
                 <div class="navbar-start">
                     <a href="/Index" class="navbar-item">Home</a>
                     @*<a href="/Index" class="navbar-item">content</a>
-                    <a href="/Index" class="navbar-item">content</a>*@
+                <a href="/Index" class="navbar-item">content</a>*@
                 </div>
                 @*<ul class="nav navbar-nav">
-                    <li><a asp-page="/Index">Home</a></li>
-                    <li><a asp-page="/About">About</a></li>
-                    <li><a asp-page="/Contact">Contact</a></li>
-                </ul>*@
+                <li><a asp-page="/Index">Home</a></li>
+                <li><a asp-page="/About">About</a></li>
+                <li><a asp-page="/Contact">Contact</a></li>
+            </ul>*@
                 <partial name="_LoginPartial" />
             </div>
+
         </div>
     </nav>
 
