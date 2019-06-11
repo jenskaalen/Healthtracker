@@ -22,22 +22,24 @@
 </head>
 <body>
 
-    <div class="section">
-        <div class="container">
-            <partial name="_LoginPartial" />
-        </div>
-    </div>
+    @{ if (!User.Identity.IsAuthenticated)
+        {
+            <div class="section">
+                <div class="container">
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        } }
 
-    <partial name="_CookieConsentPartial" />
+    @*<partial name="_CookieConsentPartial" />*@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
+        @*<hr />*@
+        @*<footer>
             <p>&copy; 2019 - Healthtracker.Web</p>
-        </footer>
+        </footer>*@
     </div>
-
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
