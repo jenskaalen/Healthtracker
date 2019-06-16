@@ -66,7 +66,8 @@
                             </div>
 
                         </form>
-                        <div class="field">
+                        <div class="field" id="formActionButtons">
+                            <button class="button is-small is-info is-pulled-left" v-on:click="resetLogEdit">Cancel</button>
                             <button class="button is-info is-pulled-right" v-on:click="postLog">Submit</button>
                         </div>
                     </div>
@@ -74,7 +75,13 @@
 
                 <div class="column">
                     <div class="field is-pulled-right" v-if="!logEditorOpen">
-                        <button class="button is-info" v-on:click="logEditorOpen=true">Add log</button>
+
+                        <a class="button is-info"  v-on:click="logEditorOpen=true">
+                            <span class="icon">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span>Add log</span>
+                        </a>
                     </div>
                 </div>
 

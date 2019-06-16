@@ -45,10 +45,14 @@
             </form>
         </section>
     </div>*@
-    <div class="columns is-centered">
+    <div class="container">
         <section>
-            <h4>Log in with: </h4>
-            <hr />
+            <div class="level">
+                <div class="level-item has-text-centered">
+                    <h2 class="title is-4">Log in or register with: </h2>
+                    <br />
+                </div>
+            </div>
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
@@ -61,19 +65,28 @@
                 }
                 else
                 {
-                    <form asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="button is-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
+                    <div class="level">
+                        <form asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                            <div class="level-item has-text-centered">
+                                <p>
+                                    @foreach (var provider in Model.ExternalLogins)
+                                    {
+
+                                        <button type="submit" class="button is-primary is-large" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
+                                            <span class="icon">
+                                                <i class="fab fa-google"></i>
+                                            </span>
+                                            <span> @provider.DisplayName</span>
+
+                                        </button>
+                                    }
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                        }
+                        }
+                </section>
     </div>
 </div>
 

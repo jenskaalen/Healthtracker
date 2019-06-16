@@ -121,10 +121,12 @@ var app = new Vue({
                     this.chosenId = 0;
                     var actionName = method === "POST" ? 'added' : 'updated';
                     this.$toasted.show('Log ' + actionName + '!');
-                    this.logEditorOpen = false;
+                    // this.logEditorOpen = false;
+                    this.resetLogEdit();
                     loader.hide();
 
-                    setTimeout(() => {
+                    setTimeout((loader) => {
+                        loader.hide();
                         this.getEntries();
                     }, 1000);
                 }).catch((error) => {
@@ -167,6 +169,14 @@ var app = new Vue({
                     console.log(error);
                     alert('uh-oh, something went wrong');
                 });
+        },
+        resetLogEdit: function() {
+            this.chosenFeeling = 5;
+            this.chosenDate = new Date().toDateInputValue();
+            this.chosenActivity = '';
+            this.chosenComment = '';
+            this.chosenId = 0;
+            this.logEditorOpen = false;
         }
     },
     computed: {
