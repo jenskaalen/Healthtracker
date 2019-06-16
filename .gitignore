@@ -268,3 +268,4 @@ __pycache__/
 *.pyc
 Healthtracker.CoreServer/Healthtracker.Web/wwwroot/js/bundle.js
 Healthtracker.CoreServer/Healthtracker.Web/wwwroot/css/main.bundle.css
+Healthtracker.CoreServer/Healthtracker.Web/wwwroot/css/main.bundle.css

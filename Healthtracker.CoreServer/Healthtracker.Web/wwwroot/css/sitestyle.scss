@@ -16,8 +16,12 @@ $bluegray: rgb(78,
 122,
 143);
 $primary: $bluegray;
-$info: $bluegray;
+$info: $purple;
 #logEntryGrid tr button {}
+
+#formActionButtons {
+    padding-top: 10px;
+}
 
 @import "../node_modules/bulma/sass/utilities/_all.sass";
 @import "../node_modules/bulma/sass/base/_all.sass";
@@ -30,4 +34,4 @@ $info: $bluegray;
 @import "../node_modules/bulma/sass/layout/section.sass";
 @import "../node_modules/bulma/sass/elements/table.sass";
 @import "../node_modules/bulma/sass/grid/_all.sass";
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+// @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');

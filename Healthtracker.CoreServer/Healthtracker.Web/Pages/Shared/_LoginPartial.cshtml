@@ -18,13 +18,31 @@
 }
 else if (Context.Request.Path == "/")
 {
-    <div class="section">
+    <div class="">
+
         <div class="container">
-            <div class="columns is-centered">
-                <a class="button is-primary is-large" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            @*<div class="columns is-centered">
+            <a class="button is-primary is-large" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </div>*@
+            <div class="level">
+                <div class="level-item has-text-centered">
+                <h2 class="title is-4">You need to be logged in </h2>
+                    <br />
+                </div>                
             </div>
-            @*<a class="" asp-area="Identity" asp-page="/Account/Register">Register</a>*@
-            
-        </div>
+
+            <div class="level">
+                <div class="level-item has-text-centered">
+                    <a class="button is-primary is-large"  asp-area="Identity" asp-page="/Account/Login">
+                        @*<span class="icon">
+                            <i class="fab fa-google"></i>
+                        </span>*@
+                        <span>Go to login</span>
+                    </a>
+                </div>
+            </div>
+                @*<a class="" asp-area="Identity" asp-page="/Account/Register">Register</a>*@
+
+            </div>
     </div>
 }

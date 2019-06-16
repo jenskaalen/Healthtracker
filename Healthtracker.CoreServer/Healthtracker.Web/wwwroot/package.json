@@ -11,7 +11,6 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "bulma": "^0.7.5",
         "css-loader": "^2.1.1",
         "extract-text-webpack-plugin": "^4.0.0-beta.0",
         "mini-css-extract-plugin": "^0.7.0",
@@ -22,6 +21,7 @@
         "webpack-cli": "^3.3.2"
     },
     "dependencies": {
+        "bulma": "^0.7.5",
         "vue-loading-overlay": "^3.2.0",
         "vue-toasted": "^1.1.27"
     },
