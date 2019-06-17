@@ -45,14 +45,21 @@ namespace Healthtracker.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             
-            services.AddAuthentication().AddGoogle(opts => {
-                opts.ClientId = "615623063152-5g5gttg677q6fn241magded5vm8gg4q2.apps.googleusercontent.com";
+            services.AddAuthentication().AddGoogle(options => {
+                options.ClientId = "615623063152-5g5gttg677q6fn241magded5vm8gg4q2.apps.googleusercontent.com";
                 //Configuration["Authentication:Google:ClientId"];
-                opts.ClientSecret = "Mb6w4UwEcptbSbXPD8tHXQjD";
+                options.ClientSecret = "Mb6w4UwEcptbSbXPD8tHXQjD";
                 //Configuration["Authentication:Google:ClientSecret"];
-                opts.CallbackPath = "/signin-google";
+                options.CallbackPath = "/signin-google";
             }
             );
+
+            services.AddAuthentication().AddFitbit(options =>
+            {
+                options.ClientSecret = "4aafb2d0d4b5daaca687f79be4cae5ea";  //Configuration["Fitbit:ClientId"];
+                options.ClientId = "22DR79"; //Configuration["Fitbit:ClientSecret"];
+                options.CallbackPath = "/signin-fitbit";
+            });
 
             services.AddSingleton(typeof(ILogRepository), typeof(RavenDbRepository));
 
