@@ -72,11 +72,6 @@ var app = new Vue({
                     alert('uh-oh, something went wrong');
                 });
         },
-        //TODO: delete?
-        postMessage: function() {
-            this.messages.push(this.message);
-            this.message = "";
-        },
         postLog: function() {
             var method = this.chosenId !== 0 ? 'PUT' : 'POST';
             const url = this.chosenId !== 0 ? '/api/log/' + this.chosenId : '/api/log';
@@ -89,20 +84,18 @@ var app = new Vue({
             });
 
             let data = {
-                    feeling: this.chosenFeeling,
-                    date: this.chosenDate,
-                    comment: this.chosenComment,
-                    activity: this.chosenActivity,
-                    //can be removed
-                    id: this.chosenId
-                }
-                // The parameters we are gonna pass to the fetch function
+                feeling: this.chosenFeeling,
+                date: this.chosenDate,
+                comment: this.chosenComment,
+                activity: this.chosenActivity,
+                //can be removed
+                id: this.chosenId
+            }
             let fetchData = {
                 method: method,
                 body: JSON.stringify(data),
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
-                    // "Content-Type": "application/x-www-form-urlencoded",
                 },
             }
             fetch(url, fetchData)
@@ -123,7 +116,6 @@ var app = new Vue({
                     this.$toasted.show('Log ' + actionName + '!');
                     this.resetLogEdit();
 
-                    //TODO: setting a timeout so we get some response
                     setTimeout(() => {
                         loader.hide();
                         this.getEntries();
@@ -153,7 +145,6 @@ var app = new Vue({
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
-                    // "Content-Type": "application/x-www-form-urlencoded",
                 }
             }
 
@@ -187,6 +178,3 @@ var app = new Vue({
         this.getEntries();
     }
 });
-
-
-// app.use(Toasted);
