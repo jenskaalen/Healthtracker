@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Healthtracker.CoreServer", "Healthtracker.CoreServer\Healthtracker.CoreServer.csproj", "{204FC471-ABF5-472D-A668-369143F129B4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Healthtracker.Web", "Healthtracker.Web\Healthtracker.Web.csproj", "{C1A22081-FE11-4054-8066-9271072A9EA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Healthtracker.Web", "Healthtracker.Web\Healthtracker.Web.csproj", "{C1A22081-FE11-4054-8066-9271072A9EA7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityTools", "UtilityTools\UtilityTools.csproj", "{AF00B2E0-FC68-44C7-8A58-B79FF84BC6EA}"
 EndProject
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{204FC471-ABF5-472D-A668-369143F129B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{204FC471-ABF5-472D-A668-369143F129B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{204FC471-ABF5-472D-A668-369143F129B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{204FC471-ABF5-472D-A668-369143F129B4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C1A22081-FE11-4054-8066-9271072A9EA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C1A22081-FE11-4054-8066-9271072A9EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1A22081-FE11-4054-8066-9271072A9EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
