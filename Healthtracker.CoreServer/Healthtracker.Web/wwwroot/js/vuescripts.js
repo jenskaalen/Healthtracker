@@ -121,14 +121,13 @@ var app = new Vue({
                     this.chosenId = 0;
                     var actionName = method === "POST" ? 'added' : 'updated';
                     this.$toasted.show('Log ' + actionName + '!');
-                    // this.logEditorOpen = false;
                     this.resetLogEdit();
-                    loader.hide();
 
-                    setTimeout((loader) => {
+                    //TODO: setting a timeout so we get some response
+                    setTimeout(() => {
                         loader.hide();
                         this.getEntries();
-                    }, 1000);
+                    }, 500);
                 }).catch((error) => {
                     alert('Uh-oh, something went wrong: ' + error);
                     loader.hide();
