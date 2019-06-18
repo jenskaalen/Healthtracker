@@ -76,6 +76,19 @@ namespace Healthtracker.Web.Repositories
             }
         }
 
+        public List<Log> Get(int logsPerPage, int logsToSkip, string userId)
+        {
+            using (var session = _store.OpenSession())
+            {
+                return session.Query<Log>()
+                    .Where(x => x.UserId == userId)
+                    .OrderByDescending(log => log.Date)
+                    .Skip(logsToSkip)
+                    .Take(logsPerPage)
+                    .ToList();
+            }
+        }
+
         public Log Update(Log log)
         {
             var result = CreateOrUpdate(log);

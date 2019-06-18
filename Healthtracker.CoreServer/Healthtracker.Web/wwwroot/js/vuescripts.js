@@ -5,9 +5,7 @@ import Toasted from 'vue-toasted';
 import Loading from 'vue-loading-overlay';
 // Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.css';
-
 import '../css/site.css';
-
 import '../css/sitestyle.scss';
 
 
@@ -33,7 +31,8 @@ var data = {
     logEntries: [],
     fullPage: true,
     logEditorOpen: false,
-    selectedLog: {}
+    selectedLog: {},
+    currentLogPage: 1
 };
 
 var app = new Vue({
@@ -53,7 +52,7 @@ var app = new Vue({
                 onCancel: this.onCancel,
             });
 
-            const url = '/api/log';
+            const url = '/api/log/page/' + this.currentLogPage;
             fetch(url)
                 .then(response => {
                     if (!response.ok) {
@@ -62,10 +61,6 @@ var app = new Vue({
                     return response.json();
                 })
                 .then(response => {
-                    // response.forEach(entry => {
-                    //     entry.date = moment(entry.date).format('MMMM Do YYYY, h:mm:ss a');
-                    // });
-
                     this.logEntries = response;
                     loader.hide();
                 }).catch(() => {
@@ -167,11 +162,23 @@ var app = new Vue({
             this.chosenComment = '';
             this.chosenId = 0;
             this.logEditorOpen = false;
+        },
+        nextPage: function() {
+            this.currentLogPage = this.currentLogPage + 1;
+            this.getEntries();
+        },
+        previousPage: function() {
+            if (this.currentLogPage <= 1) {
+                return;
+            }
+
+            this.currentLogPage -= 1;
+            this.getEntries();
         }
     },
     computed: {
         orderedLogs: function() {
-            return _.orderBy(this.logEntries, 'date');
+            return _.orderBy(this.logEntries, 'date', 'desc');
         }
     },
     created: function() {

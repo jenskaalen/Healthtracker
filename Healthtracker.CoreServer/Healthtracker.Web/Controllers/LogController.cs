@@ -18,6 +18,8 @@ namespace Healthtracker.Web.Controllers
     {
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly ILogRepository _logRepository;
+        private readonly int _logsPerPage = 10;
+
         private string UserId => User.Identity.Name;
 
         public LogController(IHostingEnvironment hostingEnvironment, ILogRepository logRepository)
@@ -46,6 +48,14 @@ namespace Healthtracker.Web.Controllers
         public string Get(int id)
         {
             throw new NotImplementedException();
+        }
+
+        [HttpGet("page/{index}")]
+        public List<Log> LogPage(int index)
+        {
+            //assuming first page is 1
+            int logsToSkip = Math.Clamp((index - 1) * _logsPerPage, 0, int.MaxValue);
+            return _logRepository.Get(_logsPerPage, logsToSkip, UserId);
         }
 
         // POST: api/Log
