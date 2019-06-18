@@ -1,18 +1,9 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Healthtracker";
 }
 
-@*<section class="hero is-dark">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    Log your day
-                </h1>
-            </div>
-        </div>
-    </section>*@
 @{ if (User.Identity.IsAuthenticated)
     {
         <div id="app" class="section">
@@ -74,8 +65,17 @@
                 </div>
 
                 <div class="column">
-                    <div class="field is-pulled-right" v-if="!logEditorOpen">
+                    @*<div class="field">
+                        <label class="label">From</label>
+                        <div class="control">
+                            <input type="date" name="logsFromDate" value="" class="input" />
+                        </div>
+                    </div>*@
+                    <div class="level">
 
+                    </div>
+
+                    <div class="field is-pulled-right" v-if="!logEditorOpen">
                         <a class="button is-info"  v-on:click="logEditorOpen=true">
                             <span class="icon">
                                 <i class="fas fa-plus"></i>
@@ -89,6 +89,33 @@
 
             <div class="" id="logViewer">
 
+                <nav class="pagination" role="navigation" aria-label="pagination">
+                    <ul class="pagination-list">
+                        @*<li>
+                            <a class="pagination-link" aria-label="Goto page 1">1</a>
+                        </li>
+                        <li>
+                            <span class="pagination-ellipsis">&hellip;</span>
+                        </li>*@
+                        <li>
+                            <a v-if="currentLogPage > 1" class="pagination-link" aria-label="Goto page 45" v-on:click="previousPage()">{{ currentLogPage - 1 }}</a>
+                            <a  v-if="currentLogPage <= 1" class="pagination-link" aria-label="Goto page 45"></a>
+                        </li>
+                        <li>
+                            <a class="pagination-link is-current" aria-label="Page 46" aria-current="page">{{currentLogPage}}</a>
+                        </li>
+                        <li>
+                            <a class="pagination-link" aria-label="Goto page 47" v-on:click="nextPage()">{{ currentLogPage + 1}}</a>
+                        </li>
+                        @*<li>
+                            <span class="pagination-ellipsis">&hellip;</span>
+                        </li>
+                        <li>
+                            <a class="pagination-link" aria-label="Goto page 86">86</a>
+                        </li>*@
+                    </ul>
+                </nav>
+
                 <table class="table is-striped is-bordered is-hoverable logEntryGrid">
                     <thead>
                     <th>Date</th>
@@ -100,7 +127,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="entry in orderedLogs" class="" v-on:click="selectedLog=entry" v-bind:class="{ selectedRow: entry == selectedLog }">
-                            <td>{{ entry.date | dateFormat }}</td>
+                            <td><span>{{ entry.date | dateFormat }}</span></td>
                             <td>{{ entry.feeling }}</td>
                             <td>{{ entry.activity }}</td>
                             <td>{{ entry.comment }}</td>

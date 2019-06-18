@@ -11,5 +11,6 @@ namespace Healthtracker.Web.Repositories
         void Delete(int id);
         Log Update(Log log);
         List<Log> GetAll(string userId);
+        List<Log> Get(int logsPerPage, int logsToSkip, string userId);
     }
 }
