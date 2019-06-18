@@ -105,7 +105,8 @@
                             <a class="pagination-link is-current" aria-label="Page 46" aria-current="page">{{currentLogPage}}</a>
                         </li>
                         <li>
-                            <a class="pagination-link" aria-label="Goto page 47" v-on:click="nextPage()">{{ currentLogPage + 1}}</a>
+                            <a v-if="logEntries.length > 9" class="pagination-link" aria-label="Goto page 47" v-on:click="nextPage()">{{ currentLogPage + 1}}</a>
+                            <a v-if="logEntries.length < 10" class="pagination-link" aria-label="Goto page 45"></a>
                         </li>
                         @*<li>
                             <span class="pagination-ellipsis">&hellip;</span>
