@@ -14,6 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.Google;
 using Healthtracker.Web.Repositories;
+using System.Net.Http;
+using Healthtracker.Web.Services;
 
 namespace Healthtracker.Web
 {
@@ -54,15 +56,19 @@ namespace Healthtracker.Web
             }
             );
 
-            services.AddAuthentication().AddFitbit(options =>
-            {
-                options.ClientSecret = "4aafb2d0d4b5daaca687f79be4cae5ea";  //Configuration["Fitbit:ClientId"];
-                options.ClientId = "***REMOVED***"; //Configuration["Fitbit:ClientSecret"];
-                options.CallbackPath = "/signin-fitbit";
-            });
+            //services.AddAuthentication().AddFitbit(options =>
+            //{
+            //    options.ClientSecret = "4aafb2d0d4b5daaca687f79be4cae5ea";  //Configuration["Fitbit:ClientId"];
+            //    options.ClientId = "***REMOVED***"; //Configuration["Fitbit:ClientSecret"];
+            //    options.CallbackPath = "/signin-fitbit";
+            //});
 
             services.AddSingleton(typeof(ILogRepository), typeof(RavenDbRepository));
-
+            services.AddSingleton(typeof(IFitbitRepository), typeof(FitbitRepository));
+            services.AddSingleton(typeof(FitbitTokenStorage));
+            //services.AddSingleton(typeof(IFitbitRepository), typeof(FitbitRepository));
+            services.AddHttpClient();
+            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

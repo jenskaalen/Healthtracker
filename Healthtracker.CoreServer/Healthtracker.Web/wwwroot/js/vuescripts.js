@@ -41,6 +41,9 @@ var app = new Vue({
     filters: {
         dateFormat: function(value) {
             return moment(value).format(dateFormatValue);
+        },
+        sleepFormat: function(value) {
+            return value.toFixed(1);
         }
     },
     methods: {

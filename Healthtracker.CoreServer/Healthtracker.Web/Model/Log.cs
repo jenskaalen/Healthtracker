@@ -24,6 +24,7 @@ namespace Healthtracker.Web.Model
         public string Activity { get; set; }
         public string Comment { get; set; }
         public int Feeling { get; set; }
-
+        public int RestingHeartrate { get; set; }
+        public decimal Sleep { get; set; }
     }
 }
