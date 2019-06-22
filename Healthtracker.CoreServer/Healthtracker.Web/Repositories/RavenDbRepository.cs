@@ -38,6 +38,8 @@ namespace Healthtracker.Web.Repositories
                     existingLog.Comment = log.Comment;
                     existingLog.Date = log.Date;
                     existingLog.Feeling = log.Feeling;
+                    existingLog.RestingHeartrate = log.RestingHeartrate;
+                    existingLog.Sleep = log.Sleep;
                     session.SaveChanges();
                     return existingLog;
                 }
