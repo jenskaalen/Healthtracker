@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Healthtracker.Web.Repositories;
 using System.Net.Http;
 using Healthtracker.Web.Services;
+using Healthtracker.Web.Model;
 
 namespace Healthtracker.Web
 {
@@ -46,27 +47,20 @@ namespace Healthtracker.Web
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            
+            services.Configure<IntegrationConfig>(Configuration);
+
+            var config = Configuration.Get<IntegrationConfig>();
+
             services.AddAuthentication().AddGoogle(options => {
-                options.ClientId = "***REMOVED***";
-                //Configuration["Authentication:Google:ClientId"];
-                options.ClientSecret = "***REMOVED***";
-                //Configuration["Authentication:Google:ClientSecret"];
+                options.ClientId = config.GoogleClientId;
+                options.ClientSecret = config.GoogleClientSecret;
                 options.CallbackPath = "/signin-google";
             }
             );
-
-            //services.AddAuthentication().AddFitbit(options =>
-            //{
-            //    options.ClientSecret = "4aafb2d0d4b5daaca687f79be4cae5ea";  //Configuration["Fitbit:ClientId"];
-            //    options.ClientId = "***REMOVED***"; //Configuration["Fitbit:ClientSecret"];
-            //    options.CallbackPath = "/signin-fitbit";
-            //});
-
+            
             services.AddSingleton(typeof(ILogRepository), typeof(RavenDbRepository));
             services.AddSingleton(typeof(IFitbitRepository), typeof(FitbitRepository));
             services.AddSingleton(typeof(FitbitTokenStorage));
-            //services.AddSingleton(typeof(IFitbitRepository), typeof(FitbitRepository));
             services.AddHttpClient();
             services.AddMemoryCache();
         }
