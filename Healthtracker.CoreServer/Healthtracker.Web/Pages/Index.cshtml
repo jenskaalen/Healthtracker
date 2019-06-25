@@ -15,21 +15,19 @@
                 <div class="column"></div>
                 <div class="column is-one-third">
 
-
-
                     <div v-if="logEditorOpen">
                         <form class="" id="logForm">
                             <div class="field">
                                 <label class="label" for="">Date</label>
                                 <div class="control">
-                                    <input class="input" v-model="chosenDate" type="date" placeholder="Todays date (placeholder)">
+                                    <input class="input" v-model="chosenLog.date" type="date" placeholder="Todays date (placeholder)">
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label" for="feeling">How well do you feel?</label>
                                 <div class="control">
                                     <div class="select">
-                                        <select class="" v-model="chosenFeeling" name="feeling" id="feelingSelect">
+                                        <select class="" v-model="chosenLog.feeling" name="feeling" id="feelingSelect">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -48,14 +46,14 @@
                             <div class="field">
                                 <label class="label" for="">Activity</label>
                                 <div class="controll">
-                                    <textarea v-model="chosenActivity" name="activityArea" class="textarea" id="" cols="30" rows="2"></textarea>
+                                    <textarea v-model="chosenLog.activity" name="activityArea" class="textarea" id="" cols="30" rows="2"></textarea>
                                 </div>
                                 <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
                             </div>
                             <div class="field">
                                 <label class="label" for="">Comment</label>
                                 <div class="controll">
-                                    <textarea v-model="chosenComment" name="commentArea" class="textarea" id="" cols="30" rows="6"></textarea>
+                                    <textarea v-model="chosenLog.comment" name="commentArea" class="textarea" id="" cols="30" rows="6"></textarea>
                                 </div>
                                 <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
                             </div>
