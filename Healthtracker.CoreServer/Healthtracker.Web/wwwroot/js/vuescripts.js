@@ -32,7 +32,10 @@ var data = {
     fullPage: true,
     logEditorOpen: false,
     selectedLog: {},
-    currentLogPage: 1
+    currentLogPage: 1,
+    chosenLog: {
+        date: new Date().toDateInputValue()
+    }
 };
 
 var app = new Vue({
@@ -43,6 +46,7 @@ var app = new Vue({
             return moment(value).format(dateFormatValue);
         },
         sleepFormat: function(value) {
+            //rounds decimals
             return value.toFixed(1);
         }
     },
@@ -81,17 +85,11 @@ var app = new Vue({
                 onCancel: this.onCancel,
             });
 
-            let data = {
-                feeling: this.chosenFeeling,
-                date: this.chosenDate,
-                comment: this.chosenComment,
-                activity: this.chosenActivity,
-                //can be removed
-                id: this.chosenId
-            }
+            console.log(this.chosenLog);
+
             let fetchData = {
                 method: method,
-                body: JSON.stringify(data),
+                body: JSON.stringify(this.chosenLog),
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                 },
@@ -105,11 +103,6 @@ var app = new Vue({
                     return response;
                 })
                 .then(response => {
-                    this.chosenComment = null;
-                    this.chosenActivity = null;
-                    this.chosenFeeling = null;
-                    this.chosenDate = null;
-                    this.chosenId = 0;
                     var actionName = method === "POST" ? 'added' : 'updated';
                     this.$toasted.show('Log ' + actionName + '!');
                     this.resetLogEdit();
@@ -124,12 +117,8 @@ var app = new Vue({
                 });
         },
         editLog: function(log) {
-            this.chosenComment = log.comment;
-            this.chosenActivity = log.activity;
-            this.chosenDate = moment(log.date).format(dateFormatValue);
-            this.chosenId = log.id;
-            this.chosenFeeling = log.feeling;
             this.logEditorOpen = true;
+            this.chosenLog = log;
 
             setTimeout(() => {
 
@@ -159,11 +148,9 @@ var app = new Vue({
                 });
         },
         resetLogEdit: function() {
-            this.chosenFeeling = 5;
-            this.chosenDate = new Date().toDateInputValue();
-            this.chosenActivity = '';
-            this.chosenComment = '';
-            this.chosenId = 0;
+            this.chosenLog = {
+                date: new Date().toDateInputValue()
+            };
             this.logEditorOpen = false;
         },
         nextPage: function() {
