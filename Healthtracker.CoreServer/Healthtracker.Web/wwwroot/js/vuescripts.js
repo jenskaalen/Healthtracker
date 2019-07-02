@@ -35,7 +35,8 @@ var data = {
     currentLogPage: 1,
     chosenLog: {
         date: new Date().toDateInputValue()
-    }
+    },
+    filter: ''
 };
 
 var app = new Vue({
@@ -168,6 +169,8 @@ var app = new Vue({
     },
     computed: {
         orderedLogs: function() {
+            //var logs = this.logEntries.filter(log => log.comment.indexOf(this.filter) > 0)
+
             return _.orderBy(this.logEntries, 'date', 'desc');
         }
     },

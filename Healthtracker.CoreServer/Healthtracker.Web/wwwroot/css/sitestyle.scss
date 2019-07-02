@@ -23,9 +23,39 @@ $info: $purple;
     padding-top: 10px;
 }
 
+.navbar-section {
+    background-color: $primary;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.navbar-section {
+    background-color: $primary;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.navbar-section i {
+    color: #d8d8d8;
+    border: none;
+    padding: 2px;
+}
+
+.navbar-section i:hover {
+    color: #ffffff;
+    border: none;
+}
+
+.navbar-section a {
+    background: lighten($primary, 10%);
+    border: none;
+    margin-left: 2em;
+}
+
 @import "../node_modules/bulma/sass/utilities/_all.sass";
 @import "../node_modules/bulma/sass/base/_all.sass";
 @import "../node_modules/bulma/sass/elements/button.sass";
+@import "../node_modules/bulma/sass/elements/icon.sass";
 @import "../node_modules/bulma/sass/elements/container.sass";
 @import "../node_modules/bulma/sass/elements/title.sass";
 @import "../node_modules/bulma/sass/form/_all.sass";
@@ -33,6 +63,7 @@ $info: $purple;
 @import "../node_modules/bulma/sass/components/pagination.sass";
 @import "../node_modules/bulma/sass/layout/hero.sass";
 @import "../node_modules/bulma/sass/layout/section.sass";
+@import "../node_modules/bulma/sass/components/level.sass";
 @import "../node_modules/bulma/sass/elements/table.sass";
 @import "../node_modules/bulma/sass/grid/_all.sass";
 // @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
