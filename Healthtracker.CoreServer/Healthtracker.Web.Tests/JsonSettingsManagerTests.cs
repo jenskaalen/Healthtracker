@@ -23,20 +23,4 @@ namespace Tests
             Assert.Pass();
         }
     }
-
-    public class JsonSettingsManagerTests
-    {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
-        [Test]
-        public void Setting_is_read()
-        {
-            var settingsManager = new JsonSettingsManager();
-            string secret = settingsManager.GetSetting(Setting.FitbitSecret);
-            Assert.AreEqual("testworks", secret);
-        }
-    }
 }
