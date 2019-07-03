@@ -101,16 +101,20 @@ var app = new Vue({
                         throw Error(response.statusText);
                     }
 
-                    return response;
+                    return response.json();
                 })
                 .then(response => {
                     var actionName = method === "POST" ? 'added' : 'updated';
                     this.$toasted.show('Log ' + actionName + '!');
                     this.resetLogEdit();
 
+                    if (method === "POST") {
+                        this.logEntries.push(response);
+                    }
+
                     setTimeout(() => {
                         loader.hide();
-                        this.getEntries();
+                        // this.getEntries();
                     }, 500);
                 }).catch((error) => {
                     alert('Uh-oh, something went wrong: ' + error);

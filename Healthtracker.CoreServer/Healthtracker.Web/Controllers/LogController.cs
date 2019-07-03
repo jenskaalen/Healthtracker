@@ -60,19 +60,20 @@ namespace Healthtracker.Web.Controllers
 
         // POST: api/Log
         [HttpPost]
-        public void Post([FromBody] Log log)
+        public Log Post([FromBody] Log log)
         {
             log.UserId = UserId;
-            _logRepository.Update(log);
+            return _logRepository.Update(log);
         }
 
         // PUT: api/Log/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Log log)
+        public Log Put(int id, [FromBody] Log log)
         {
             log.UserId = UserId;
             //TODO: theres no real update handling in ravendb
             _logRepository.Update(log);
+            return log;
 
             //TODO: get root path
             //using (var db = new LiteDatabase(_hostingEnvironment.WebRootPath + @"\..\Data\logdata.db"))
