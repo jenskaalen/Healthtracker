@@ -40,6 +40,7 @@ namespace Healthtracker.Web.Repositories
                     existingLog.Feeling = log.Feeling;
                     existingLog.RestingHeartrate = log.RestingHeartrate;
                     existingLog.Sleep = log.Sleep;
+                    existingLog.FitbitActivities = log.FitbitActivities;
                     session.SaveChanges();
                     return existingLog;
                 }
@@ -74,6 +75,7 @@ namespace Healthtracker.Web.Repositories
             {
                 return session.Query<Log>()
                     .Where(x => x.UserId == userId)
+                    .Include(x => x.FitbitActivities)
                     .ToList();
             }
         }
@@ -84,6 +86,7 @@ namespace Healthtracker.Web.Repositories
             {
                 return session.Query<Log>()
                     .Where(x => x.UserId == userId)
+                    .Include(x => x.FitbitActivities)
                     .OrderByDescending(log => log.Date)
                     .Skip(logsToSkip)
                     .Take(logsPerPage)

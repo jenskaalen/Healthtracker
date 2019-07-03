@@ -32,7 +32,8 @@ namespace Healthtracker.Web.Controllers
         [HttpGet]
         public IEnumerable<Log> Get()
         {
-            return _logRepository.GetAll(UserId);
+            var logs =  _logRepository.GetAll(UserId);
+            return logs;
             ////TODO: get root path
             //using (var db = new LiteDatabase(_hostingEnvironment.WebRootPath + @"\..\Data\logdata.db"))
             //{
@@ -55,7 +56,8 @@ namespace Healthtracker.Web.Controllers
         {
             //assuming first page is 1
             int logsToSkip = Math.Clamp((index - 1) * _logsPerPage, 0, int.MaxValue);
-            return _logRepository.Get(_logsPerPage, logsToSkip, UserId);
+            var logs = _logRepository.Get(_logsPerPage, logsToSkip, UserId);
+            return logs;
         }
 
         // POST: api/Log

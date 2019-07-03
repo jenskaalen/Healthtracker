@@ -70,13 +70,30 @@ namespace Healthtracker.Web.Controllers
                 var expires = DateTime.Now.AddDays(1);
                 fitbitTokenStorage.StoreAccessToken(accessToken, expires, UserId);
 
-                SynchronizeHeartrates(accessToken);
-                SynchronizeSleep(accessToken);
+                //SynchronizeHeartrates(accessToken);
+                //SynchronizeSleep(accessToken);
+                SynchronizeActivities(accessToken);
                 return LocalRedirect("/");
             }
             else
             {
                 throw new NotImplementedException();
+            }
+        }
+
+        private void SynchronizeActivities(string accessToken)
+        {
+            int yearsModifier = -3;
+            int limit = 20;
+            int offset = 0;
+            List<FitbitActivity> activityData = _fitbitRepository.GetFitbitActivities(accessToken, DateTime.Today.AddYears(yearsModifier), limit, offset);
+            List<Model.Log> logs = _logRepository.GetAll(UserId);
+
+            foreach (var log in logs)
+            {
+                var activitiesMatchingDate = activityData.Where(act => act.OriginalStartTime.Date == log.Date.Date);
+                log.FitbitActivities = activitiesMatchingDate.ToList();
+                _logRepository.Update(log);
             }
         }
 

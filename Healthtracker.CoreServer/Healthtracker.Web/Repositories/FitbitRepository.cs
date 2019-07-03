@@ -1,4 +1,5 @@
 ﻿using Healthtracker.Web.Model;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -139,6 +140,48 @@ namespace Healthtracker.Web.Repositories
             });
 
             return sleepData;
+        }
+
+        public List<FitbitActivity> GetFitbitActivities(string accessToken, DateTime afterDate, int limit, int offset, string sort = "desc")
+        {
+            string afterDateFormatted = afterDate.ToString("yyyy-MM-dd");
+
+            string url = $"https://api.fitbit.com/1/user/-/activities/list.json?afterDate={afterDateFormatted}&sort={sort}&offset={offset}&limit={limit}";
+            HttpRequestMessage request = CreateRequest(accessToken, url);
+
+            HttpClient client = clientFactory.CreateClient();
+            HttpResponseMessage response = client.SendAsync(request).Result;
+
+            string jsonContent = response.Content.ReadAsStringAsync().Result;
+
+            return GetActivitiesFromJson(jsonContent);
+        }
+
+        private static HttpRequestMessage CreateRequest(string accessToken, string url)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                url);
+
+            request.Headers.Add("Authorization", $"Bearer {accessToken}");
+            request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+            request.Headers.Add("ContentType", "application/x-www-form-urlencoded");
+            return request;
+        }
+
+        private List<FitbitActivity> GetActivitiesFromJson(string json)
+        {
+            JObject jbobject = JObject.Parse(json);
+
+            JEnumerable<JToken> jActivities = jbobject["activities"].Children();
+            var activities = new List<FitbitActivity>();
+
+            jActivities.ToList().ForEach(jActivity =>
+            {
+                var fitbitActivity = JsonConvert.DeserializeObject<FitbitActivity>(jActivity.ToString(Formatting.None));
+                activities.Add(fitbitActivity);
+            });
+
+            return activities;
         }
     }
 }

@@ -8,5 +8,6 @@ namespace Healthtracker.Web.Repositories
     {
         List<FitbitHeartrate> GetFitbitHeartrates(string token, DateTime fromDate, FitbitTimeSpan timeSpan);
         List<FitbitSleep> GetFitbitSleep(string accessToken, DateTime from, DateTime to, FitbitTimeSpan timeSpan);
+        List<FitbitActivity> GetFitbitActivities(string accessToken, DateTime afterDate, int limit, int offset, string sort = "desc");
     }
 }

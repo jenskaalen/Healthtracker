@@ -26,5 +26,6 @@ namespace Healthtracker.Web.Model
         public int Feeling { get; set; }
         public int RestingHeartrate { get; set; }
         public decimal Sleep { get; set; }
+        public List<FitbitActivity> FitbitActivities { get; set; }
     }
 }
