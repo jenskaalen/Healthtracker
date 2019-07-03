@@ -46,7 +46,6 @@ namespace Healthtracker.Web.Controllers
             var request = new HttpRequestMessage(HttpMethod.Post,
                 url);
             var postbody = new Dictionary<string, string>();
-            //TODO: get client ID from settings
             postbody.Add("clientId", config.FitbitClientId);
             postbody.Add("grant_type", "authorization_code");
             postbody.Add("code", code);

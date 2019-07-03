@@ -32,16 +32,7 @@ namespace Healthtracker.Web.Controllers
         [HttpGet]
         public IEnumerable<Log> Get()
         {
-            var logs =  _logRepository.GetAll(UserId);
-            return logs;
-            ////TODO: get root path
-            //using (var db = new LiteDatabase(_hostingEnvironment.WebRootPath + @"\..\Data\logdata.db"))
-            //{
-            //    string userId = User.Identity.Name;
-            //    var col = db.GetCollection<Log>("logs");
-            //    return col.Find(x => x.UserId == userId).ToList();
-            //    //return col.FindAll();
-            //}
+            return _logRepository.GetAll(UserId);
         }
 
         // GET: api/Log/5
@@ -73,27 +64,7 @@ namespace Healthtracker.Web.Controllers
         public Log Put(int id, [FromBody] Log log)
         {
             log.UserId = UserId;
-            //TODO: theres no real update handling in ravendb
-            _logRepository.Update(log);
-            return log;
-
-            //TODO: get root path
-            //using (var db = new LiteDatabase(_hostingEnvironment.WebRootPath + @"\..\Data\logdata.db"))
-            //{
-            //    string userId = User.Identity.Name;
-            //    var col = db.GetCollection<Log>("logs");
-            //    var existingLog = col.Find(q => q.Id == id && q.UserId == userId).FirstOrDefault();
-
-            //    if (existingLog == null)
-            //        throw new UnauthorizedAccessException();
-
-            //    log.UserId = userId;
-
-            //    bool updated = col.Update(log);
-
-            //    if (!updated)
-            //        throw new Exception("Didnt find log to update");
-            //}
+            return _logRepository.Update(log);
         }
 
         // DELETE: api/ApiWithActions/5
