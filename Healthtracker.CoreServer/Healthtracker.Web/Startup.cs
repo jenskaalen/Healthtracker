@@ -17,6 +17,7 @@ using Healthtracker.Web.Repositories;
 using System.Net.Http;
 using Healthtracker.Web.Services;
 using Healthtracker.Web.Model;
+using Healthtracker.Web.Hubs;
 
 namespace Healthtracker.Web
 {
@@ -63,6 +64,7 @@ namespace Healthtracker.Web
             services.AddSingleton(typeof(FitbitTokenStorage));
             services.AddHttpClient();
             services.AddMemoryCache();
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,6 +95,11 @@ namespace Healthtracker.Web
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseSignalR(r =>
+            {
+                r.MapHub<NotificationHub>("/notificationHub");
+            });
 
             app.UseMvc();
         }

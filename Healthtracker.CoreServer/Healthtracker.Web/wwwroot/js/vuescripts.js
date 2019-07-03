@@ -1,13 +1,16 @@
 ﻿/*jshint esversion: 6 */
 const dateFormatValue = 'YYYY-MM-DD';
 import Toasted from 'vue-toasted';
-
+const signalR = require('@aspnet/signalr');
 import Loading from 'vue-loading-overlay';
 // Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.css';
 import '../css/site.css';
 import '../css/sitestyle.scss';
 
+let signalrHub = new signalR.HubConnectionBuilder()
+    .withUrl("/notificationHub")
+    .build();
 
 Date.prototype.toDateInputValue = (function() {
     var local = new Date(this);
@@ -36,6 +39,7 @@ var data = {
     chosenLog: {
         date: new Date().toDateInputValue()
     },
+    notificationHub: signalrHub,
     filter: ''
 };
 
@@ -71,6 +75,11 @@ var app = new Vue({
                 .then(response => {
                     this.logEntries = response;
                     loader.hide();
+
+                    // signalrHub.invoke("SendMessage", "user123", "new page").catch(function(err) {
+                    //     return console.error(err.toString());
+                    // });
+
                 }).catch(() => {
                     alert('uh-oh, something went wrong');
                 });
@@ -180,5 +189,14 @@ var app = new Vue({
     },
     created: function() {
         this.getEntries();
+        // let toasty = this.$toasted;
+
+
+        let toastfuck = this.$toasted;
+        this.notificationHub.on("ReceiveMessage", (user, message) => {
+            toastfuck.show(message);
+        });
+
+        this.notificationHub.start();
     }
 });

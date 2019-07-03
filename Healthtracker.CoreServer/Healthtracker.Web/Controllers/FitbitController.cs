@@ -128,6 +128,7 @@ namespace Healthtracker.Web.Controllers
                     _logRepository.Update(log);
                 });
             }
+            
         }
     }
 }
