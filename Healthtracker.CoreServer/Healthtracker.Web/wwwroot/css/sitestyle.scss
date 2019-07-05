@@ -19,6 +19,10 @@ $primary: $bluegray;
 $info: $purple;
 #logEntryGrid tr button {}
 
+#logViewer {
+    overflow-x: auto;
+}
+
 #formActionButtons {
     padding-top: 10px;
 }
