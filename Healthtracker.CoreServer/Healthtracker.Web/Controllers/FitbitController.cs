@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Healthtracker.Web.Model;
 using Healthtracker.Web.Repositories;
 using Healthtracker.Web.Services;
+using Healthtracker.Web.Services.Synchronization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -24,17 +25,22 @@ namespace Healthtracker.Web.Controllers
         private readonly ILogRepository _logRepository;
         private readonly IMemoryCache memoryCache;
         private readonly FitbitTokenStorage fitbitTokenStorage;
+        private readonly ISyncQueue syncQueue;
+        private readonly SynchronizationService synchronizationService;
         private readonly IntegrationConfig config;
 
         private string UserId => User.Identity.Name;
+        
 
-        public FitbitController(IHttpClientFactory clientFactory, IFitbitRepository fitbitRepository, ILogRepository logRepository, IMemoryCache memoryCache, FitbitTokenStorage fitbitTokenStorage, IOptions<IntegrationConfig> config)
+        public FitbitController(IHttpClientFactory clientFactory, IFitbitRepository fitbitRepository, ILogRepository logRepository, IMemoryCache memoryCache, FitbitTokenStorage fitbitTokenStorage, IOptions<IntegrationConfig> config, ISyncQueue syncQueue)
         {
             _clientFactory = clientFactory;
             this._fitbitRepository = fitbitRepository;
             this._logRepository = logRepository;
             this.memoryCache = memoryCache;
             this.fitbitTokenStorage = fitbitTokenStorage;
+            this.syncQueue = syncQueue;
+            this.synchronizationService = synchronizationService;
             this.config = config.Value;
         }
 
@@ -71,64 +77,16 @@ namespace Healthtracker.Web.Controllers
 
                 //SynchronizeHeartrates(accessToken);
                 //SynchronizeSleep(accessToken);
-                SynchronizeActivities(accessToken);
+                //SynchronizeActivities(accessToken);
+                var job = new FitbitSynchronizationJob(UserId, accessToken, _fitbitRepository, _logRepository);
+                syncQueue.Add(job);
+
                 return LocalRedirect("/");
             }
             else
             {
                 throw new NotImplementedException();
             }
-        }
-
-        private void SynchronizeActivities(string accessToken)
-        {
-            int yearsModifier = -3;
-            int limit = 20;
-            int offset = 0;
-            List<FitbitActivity> activityData = _fitbitRepository.GetFitbitActivities(accessToken, DateTime.Today.AddYears(yearsModifier), limit, offset);
-            List<Model.Log> logs = _logRepository.GetAll(UserId);
-
-            foreach (var log in logs)
-            {
-                var activitiesMatchingDate = activityData.Where(act => act.OriginalStartTime.Date == log.Date.Date);
-                log.FitbitActivities = activitiesMatchingDate.ToList();
-                _logRepository.Update(log);
-            }
-        }
-
-        private void SynchronizeSleep(string accessToken)
-        {
-            List<Model.FitbitSleep> sleepData = _fitbitRepository.GetFitbitSleep(accessToken, DateTime.Today.AddDays(-30), DateTime.Today, FitbitTimeSpan.Month);
-            List<Model.Log> logs = _logRepository.GetAll(UserId);
-
-            foreach (var sleep in sleepData)
-            {
-                IEnumerable<Model.Log> matchingLogs = logs.Where(log => log.Date.Date == sleep.Date.Date);
-
-                matchingLogs.ToList().ForEach(log =>
-                {
-                    log.Sleep = sleep.Sleep;
-                    _logRepository.Update(log);
-                });
-            }
-        }
-
-        private void SynchronizeHeartrates(string accessToken)
-        {
-            List<Model.FitbitHeartrate> heartrates = _fitbitRepository.GetFitbitHeartrates(accessToken, DateTime.Today, FitbitTimeSpan.Month);
-            List<Model.Log> logs = _logRepository.GetAll(UserId);
-
-            foreach (var heartRate in heartrates)
-            {
-                IEnumerable<Model.Log> matchingLogs = logs.Where(log => log.Date.Date == heartRate.Date.Date);
-
-                matchingLogs.ToList().ForEach(log =>
-                {
-                    log.RestingHeartrate = heartRate.RestingHeartrate;
-                    _logRepository.Update(log);
-                });
-            }
-            
         }
     }
 }

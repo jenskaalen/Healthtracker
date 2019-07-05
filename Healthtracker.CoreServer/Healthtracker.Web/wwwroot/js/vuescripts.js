@@ -163,7 +163,8 @@ var app = new Vue({
         },
         resetLogEdit: function() {
             this.chosenLog = {
-                date: new Date().toDateInputValue()
+                date: new Date().toDateInputValue(),
+                feeling: _.orderBy(this.logEntries, 'date', 'desc')[0].feeling
             };
             this.logEditorOpen = false;
         },
@@ -193,8 +194,10 @@ var app = new Vue({
 
 
         let toastfuck = this.$toasted;
+        // let that = this;
         this.notificationHub.on("ReceiveMessage", (user, message) => {
             toastfuck.show(message);
+            // that.getEntries();
         });
 
         this.notificationHub.start();

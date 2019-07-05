@@ -18,6 +18,8 @@ using System.Net.Http;
 using Healthtracker.Web.Services;
 using Healthtracker.Web.Model;
 using Healthtracker.Web.Hubs;
+using Healthtracker.Web.Services.Synchronization;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Healthtracker.Web
 {
@@ -46,6 +48,8 @@ namespace Healthtracker.Web
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            //services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, SynchronizationService >();
+            services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, SynchronizationService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<IntegrationConfig>(Configuration);
@@ -58,13 +62,18 @@ namespace Healthtracker.Web
                 options.CallbackPath = "/signin-google";
             }
             );
-            
+
+            services.AddSingleton<IUserIdProvider, UsernameIdProvider>();
+            services.AddSingleton<ISyncQueue, SyncQueue>();
             services.AddSingleton(typeof(ILogRepository), typeof(RavenDbRepository));
             services.AddSingleton(typeof(IFitbitRepository), typeof(FitbitRepository));
             services.AddSingleton(typeof(FitbitTokenStorage));
             services.AddHttpClient();
             services.AddMemoryCache();
+            //services.AddHostedService<SynchronizationService>();
             services.AddSignalR();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
