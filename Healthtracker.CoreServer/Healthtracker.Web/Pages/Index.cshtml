@@ -117,7 +117,7 @@
                     </ul>
                 </nav>
 
-                <table class="table is-striped is-bordered is-hoverable logEntryGrid">
+                <table class="table is-striped is-bordered is-hoverable is-fullwidth logEntryGrid">
                     <thead>
                     <th>Date</th>
                     <th>Feeling</th>
@@ -125,6 +125,7 @@
                     <th>Comment</th>
                     <th>Sleep</th>
                     <th>Heartrate</th>
+                    <th>Activity</th>
                     <th>Edit</th>
                     <th>Delete</th>
                     </thead>
@@ -136,6 +137,9 @@
                             <td>{{ entry.comment }}</td>
                             <td>{{ entry.sleep | sleepFormat}}</td>
                             <td>{{ entry.restingHeartrate }}</td>
+                            <td>
+                                <div class="box" v-for="act in entry.fitbitActivities"> <strong>{{ act.activityName }}</strong> - {{ act.originalStartTime.substring(11) }}:{{ act.originalStartTime.minutes }} - {{ (act.activeDuration / 1000 / 60) | sleepFormat }} minutes<br /></div>
+                            </td>
                             <td><button v-if="entry == selectedLog" class="button" v-on:click="editLog(entry)"><i class="fas fa-edit"></i> </button></td>
                             <td><button v-if="entry == selectedLog" class="button" v-on:click="deleteLog(entry)"><i class="fas fa-trash"></i> </button></td>
                         </tr>
