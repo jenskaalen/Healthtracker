@@ -26,11 +26,6 @@ var data = {
     message: 'Hello Vue!',
     inputText: 'write here',
     messages: ['wee', 'woo'],
-    chosenFeeling: 5,
-    chosenDate: new Date().toDateInputValue(),
-    chosenActivity: '',
-    chosenComment: '',
-    chosenId: 0,
     logEntries: [],
     fullPage: true,
     logEditorOpen: false,
@@ -85,8 +80,8 @@ var app = new Vue({
                 });
         },
         postLog: function() {
-            var method = this.chosenId !== 0 ? 'PUT' : 'POST';
-            const url = this.chosenId !== 0 ? '/api/log/' + this.chosenId : '/api/log';
+            var method = this.chosenId != null ? 'PUT' : 'POST';
+            const url = this.chosenId != null ? '/api/log/' + this.chosenId : '/api/log';
 
             let loader = this.$loading.show({
                 // Optional parameters
