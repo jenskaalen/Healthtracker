@@ -12,56 +12,57 @@
             <div class="columns">
                 <div class="column"></div>
                 <div class="column is-one-third">
-
-                    <div v-if="logEditorOpen">
-                        <form class="" id="logForm">
-                            <div class="field">
-                                <label class="label" for="">Date</label>
-                                <div class="control">
-                                    <input class="input" v-model="chosenLog.date" type="date" placeholder="Todays date (placeholder)">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label class="label" for="feeling">How well do you feel?</label>
-                                <div class="control">
-                                    <div class="select">
-                                        <select class="" v-model="chosenLog.feeling" name="feeling" id="feelingSelect">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                        </select>
+                    <transition name="slide-fade">
+                        <div v-if="logEditorOpen">
+                            <form class="" id="logForm">
+                                <div class="field">
+                                    <label class="label" for="">Date</label>
+                                    <div class="control">
+                                        <input class="input" v-model="chosenLog.date" type="date" placeholder="Todays date (placeholder)">
                                     </div>
                                 </div>
+                                <div class="field">
+                                    <label class="label" for="feeling">How well do you feel?</label>
+                                    <div class="control">
+                                        <div class="select">
+                                            <select class="" v-model="chosenLog.feeling" name="feeling" id="feelingSelect">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-                            </div>
-                            <div class="field">
-                                <label class="label" for="">Activity</label>
-                                <div class="controll">
-                                    <textarea v-model="chosenLog.activity" name="activityArea" class="textarea" id="" cols="30" rows="2"></textarea>
                                 </div>
-                                <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
-                            </div>
-                            <div class="field">
-                                <label class="label" for="">Comment</label>
-                                <div class="controll">
-                                    <textarea v-model="chosenLog.comment" name="commentArea" class="textarea" id="" cols="30" rows="6"></textarea>
+                                <div class="field">
+                                    <label class="label" for="">Activity</label>
+                                    <div class="controll">
+                                        <textarea v-model="chosenLog.activity" name="activityArea" class="textarea" id="" cols="30" rows="2"></textarea>
+                                    </div>
+                                    <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
                                 </div>
-                                <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
-                            </div>
+                                <div class="field">
+                                    <label class="label" for="">Comment</label>
+                                    <div class="controll">
+                                        <textarea v-model="chosenLog.comment" name="commentArea" class="textarea" id="" cols="30" rows="6"></textarea>
+                                    </div>
+                                    <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
+                                </div>
 
-                        </form>
-                        <div class="field" id="formActionButtons">
-                            <button class="button is-small is-info is-pulled-left" v-on:click="resetLogEdit">Cancel</button>
-                            <button class="button is-info is-pulled-right" v-on:click="postLog">Submit</button>
+                            </form>
+                            <div class="field" id="formActionButtons">
+                                <button class="button is-small is-info is-pulled-left" v-on:click="resetLogEdit">Cancel</button>
+                                <button class="button is-info is-pulled-right" v-on:click="postLog">Submit</button>
+                            </div>
                         </div>
-                    </div>
+                    </transition>
                 </div>
 
                 <div class="column">
