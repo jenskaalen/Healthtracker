@@ -17,11 +17,20 @@ $bluegray: rgb(78,
 143);
 $primary: $bluegray;
 $info: $purple;
-#logEntryGrid tr button {}
-
-#logViewer {
-    overflow-x: auto;
+.tile.is-parent {
+    background-color: lighten($bluegray, 50%);
+    cursor: pointer;
 }
+
+.selectedRow {
+    /* font-weight: 550; */
+    border: solid 2px #bebebe;
+}
+
+// .logEntryGrid tr {
+//     cursor: pointer;
+// }
+#logEntryGrid tr button {}
 
 #formActionButtons {
     padding-top: 10px;
@@ -80,7 +89,8 @@ $info: $purple;
 }
 
 .slide-fade-leave-active {
-    transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all .3s ease;
+    // transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 
 .slide-fade-enter,
@@ -103,6 +113,7 @@ $info: $purple;
 @import "../node_modules/bulma/sass/components/navbar.sass";
 @import "../node_modules/bulma/sass/components/pagination.sass";
 @import "../node_modules/bulma/sass/layout/hero.sass";
+// @import "../node_modules/bulma/sass/grid/tiles.sass";
 @import "../node_modules/bulma/sass/layout/section.sass";
 @import "../node_modules/bulma/sass/components/level.sass";
 @import "../node_modules/bulma/sass/elements/table.sass";
