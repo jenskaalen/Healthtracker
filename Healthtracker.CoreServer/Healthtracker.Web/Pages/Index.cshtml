@@ -6,148 +6,177 @@
 
 @{ if (User.Identity.IsAuthenticated)
     {
-        <div id="app" class="section">
+<div id="app" class="section">
 
-         
-            <div class="columns">
-                <div class="column"></div>
-                <div class="column is-one-third">
-                    <transition name="slide-fade">
-                        <div v-if="logEditorOpen">
-                            <form class="" id="logForm">
-                                <div class="field">
-                                    <label class="label" for="">Date</label>
-                                    <div class="control">
-                                        <input class="input" v-model="chosenLog.date" type="date" placeholder="Todays date (placeholder)">
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <label class="label" for="feeling">How well do you feel?</label>
-                                    <div class="control">
-                                        <div class="select">
-                                            <select class="" v-model="chosenLog.feeling" name="feeling" id="feelingSelect">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                                <option value="10">10</option>
-                                            </select>
-                                        </div>
-                                    </div>
 
-                                </div>
-                                <div class="field">
-                                    <label class="label" for="">Activity</label>
-                                    <div class="controll">
-                                        <textarea v-model="chosenLog.activity" name="activityArea" class="textarea" id="" cols="30" rows="2"></textarea>
-                                    </div>
-                                    <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
-                                </div>
-                                <div class="field">
-                                    <label class="label" for="">Comment</label>
-                                    <div class="controll">
-                                        <textarea v-model="chosenLog.comment" name="commentArea" class="textarea" id="" cols="30" rows="6"></textarea>
-                                    </div>
-                                    <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
-                                </div>
-
-                            </form>
-                            <div class="field" id="formActionButtons">
-                                <button class="button is-small is-info is-pulled-left" v-on:click="resetLogEdit">Cancel</button>
-                                <button class="button is-info is-pulled-right" v-on:click="postLog">Submit</button>
+    <div class="columns">
+        <div class="column"></div>
+        <div class="column is-one-third">
+            <transition name="slide-fade">
+                <div v-if="logEditorOpen">
+                    <form class="" id="logForm">
+                        <div class="field">
+                            <label class="label" for="">Date</label>
+                            <div class="control">
+                                <input class="input" v-model="selectedLog.date" type="date" placeholder="Todays date (placeholder)">
                             </div>
                         </div>
-                    </transition>
-                </div>
+                        <div class="field">
+                            <label class="label" for="feeling">How well do you feel?</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select class="" v-model="selectedLog.feeling" name="feeling" id="feelingSelect">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                </div>
+                            </div>
 
-                <div class="column">
-                    @*<div class="field">
-                        <label class="label">From</label>
-                        <div class="control">
-                            <input type="date" name="logsFromDate" value="" class="input" />
                         </div>
-                    </div>*@
-                    <div class="level">
+                        <div class="field">
+                            <label class="label" for="">Activity</label>
+                            <div class="controll">
+                                <textarea v-model="selectedLog.activity" name="activityArea" class="textarea" id="" cols="30" rows="2"></textarea>
+                            </div>
+                            <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
+                        </div>
+                        <div class="field">
+                            <label class="label" for="">Comment</label>
+                            <div class="controll">
+                                <textarea v-model="selectedLog.comment" name="commentArea" class="textarea" id="" cols="30" rows="6"></textarea>
+                            </div>
+                            <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
+                        </div>
 
-                    </div>
-
-                    <div class="field is-pulled-right" v-if="!logEditorOpen">
-                        <a class="button is-info"  v-on:click="logEditorOpen=true">
-                            <span class="icon">
-                                <i class="fas fa-plus"></i>
-                            </span>
-                            <span>Add log</span>
-                        </a>
+                    </form>
+                    <div class="field" id="formActionButtons">
+                        <button class="button is-small is-info is-pulled-left" v-on:click="resetLogEdit">Cancel</button>
+                        <button class="button is-info is-pulled-right" v-on:click="postLog">Submit</button>
                     </div>
                 </div>
+            </transition>
+        </div>
 
-            </div>
+        <div class="column">
+        </div>
 
-            <div class="" id="logViewer">
+    </div>
 
-                <nav class="pagination" role="navigation" aria-label="pagination">
-                    <ul class="pagination-list">
-                        @*<li>
-                            <a class="pagination-link" aria-label="Goto page 1">1</a>
-                        </li>
-                        <li>
-                            <span class="pagination-ellipsis">&hellip;</span>
-                        </li>*@
-                        <li>
-                            <a v-if="currentLogPage > 1" class="pagination-link" aria-label="Goto page 45" v-on:click="previousPage()">{{ currentLogPage - 1 }}</a>
-                            <a  v-if="currentLogPage <= 1" class="pagination-link" aria-label="Goto page 45"></a>
-                        </li>
-                        <li>
-                            <a class="pagination-link is-current" aria-label="Page 46" aria-current="page">{{currentLogPage}}</a>
-                        </li>
-                        <li>
-                            <a v-if="logEntries.length > 9" class="pagination-link" aria-label="Goto page 47" v-on:click="nextPage()">{{ currentLogPage + 1}}</a>
-                            <a v-if="logEntries.length < 10" class="pagination-link" aria-label="Goto page 45"></a>
-                        </li>
-                        @*<li>
-                            <span class="pagination-ellipsis">&hellip;</span>
-                        </li>
-                        <li>
-                            <a class="pagination-link" aria-label="Goto page 86">86</a>
-                        </li>*@
-                    </ul>
-                </nav>
 
-                <table class="table is-striped is-bordered is-hoverable is-fullwidth logEntryGrid">
-                    <thead>
-                    <th>Date</th>
-                    <th>Feeling</th>
-                    <th>Activity</th>
-                    <th>Comment</th>
-                    <th>Sleep</th>
-                    <th>Heartrate</th>
-                    <th>Activity</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                    </thead>
-                    <tbody>
-                        <tr v-for="entry in orderedLogs" class="" v-on:click="selectedLog=entry" v-bind:class="{ selectedRow: entry == selectedLog }">
-                            <td><span>{{ entry.date | dateFormat }}</span></td>
-                            <td>{{ entry.feeling }}</td>
-                            <td>{{ entry.activity }}</td>
-                            <td>{{ entry.comment }}</td>
-                            <td>{{ entry.sleep | sleepFormat}}</td>
-                            <td>{{ entry.restingHeartrate }}</td>
-                            <td>
-                                <div class="box" v-for="act in entry.fitbitActivities"> <strong>{{ act.activityName }}</strong> - {{ act.originalStartTime.substring(11) }}:{{ act.originalStartTime.minutes }} - {{ (act.activeDuration / 1000 / 60) | sleepFormat }} minutes<br /></div>
-                            </td>
-                            <td><button v-if="entry == selectedLog" class="button" v-on:click="editLog(entry)"><i class="fas fa-edit"></i> </button></td>
-                            <td><button v-if="entry == selectedLog" class="button" v-on:click="deleteLog(entry)"><i class="fas fa-trash"></i> </button></td>
-                        </tr>
-                    </tbody>
-                </table>
+
+    <div class="" id="logViewer">
+        <div class="level">
+            <nav class="pagination level-item" role="navigation" aria-label="pagination">
+                <ul class="pagination-list">
+                    @*<li>
+                    <a class="pagination-link" aria-label="Goto page 1">1</a>
+                </li>
+                <li>
+                    <span class="pagination-ellipsis">&hellip;</span>
+                </li>*@
+                    <li>
+                        <a v-if="currentLogPage > 1" class="pagination-link" aria-label="Goto page 45" v-on:click="previousPage()">{{ currentLogPage - 1 }}</a>
+                        <a v-if="currentLogPage <= 1" class="pagination-link" aria-label="Goto page 45"></a>
+                    </li>
+                    <li>
+                        <a class="pagination-link is-current" aria-label="Page 46" aria-current="page">{{currentLogPage}}</a>
+                    </li>
+                    <li>
+                        <a v-if="logEntries.length > 9" class="pagination-link" aria-label="Goto page 47" v-on:click="nextPage()">{{ currentLogPage + 1}}</a>
+                        <a v-if="logEntries.length < 10" class="pagination-link" aria-label="Goto page 45"></a>
+                    </li>
+                    @*<li>
+                    <span class="pagination-ellipsis">&hellip;</span>
+                </li>
+                <li>
+                    <a class="pagination-link" aria-label="Goto page 86">86</a>
+                </li>*@
+                </ul>
+            </nav>
+            <div class="level-right">
+                <div class="level-item" v-if="!logEditorOpen">
+                    <a class="button is-info" v-on:click="logEditorOpen=true">
+                        <span class="icon">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        <span>Add log</span>
+                    </a>
+                </div>
             </div>
         </div>
+
+
+        <div class="tile is-ancestor" v-for="entry in orderedLogs" v-on:click="selectedLog=entry" v-bind:class="{ selectedRow: entry == selectedLog }">
+            <div class="tile is-parent">
+                <article class="tile is-child box is-3">
+                    <p class=""><strong>Date</strong></p>
+                    <p>{{ entry.date | dateFormat }}</p>
+                    <p class="has-text-weight-bold">Feeling</p>
+                    <p>{{ entry.feeling }}</p>
+                    <div class="is-pulled-right">
+                        <button v-if="entry == selectedLog" class="button" v-on:click="editLog(entry)"><i class="fas fa-edit"></i> </button>
+                        <button v-if="entry == selectedLog" class="button" v-on:click="deleteLog(entry)"><i class="fas fa-trash"></i> </button>
+                    </div>
+                </article>
+                <article class="tile is-child box is-3">
+                    <p class="title is-5">Comment</p>
+                    <p>{{ entry.comment }}</p>
+                </article>
+                <article class="tile is-child box is-3">
+                    <p class="title is-5">Body & sleep</p>
+                    <p class="has-text-weight-bold">Sleep</p>
+                    <p>{{ entry.sleep | sleepFormat }} hours</p>
+
+                    <p class="has-text-weight-bold">Resting heart rate</p>
+                    <p>{{ entry.restingHeartrate }} beats per minute</p>
+                </article>
+                <article class="tile is-child box  is-3" v-if="entry.activity != null || (entry.fitbitActivities != null && entry.fitbitActivities.length > 0)">
+                    <p class="title is-5">Activities</p>
+                    <div>{{ entry.activity }}</div>
+                    <div class="" v-for="act in entry.fitbitActivities"> <strong>{{ act.activityName }}</strong> - {{ act.originalStartTime.substring(11) }}:{{ act.originalStartTime.minutes }} - {{ (act.activeDuration / 1000 / 60) | sleepFormat }} minutes<br /></div>
+
+                </article>
+            </div>
+        </div>
+
+        @*<table class="table is-striped is-bordered is-hoverable is-fullwidth logEntryGrid">
+            <thead>
+            <th>Date</th>
+            <th>Feeling</th>
+            <th>Activity</th>
+            <th>Comment</th>
+            <th>Sleep</th>
+            <th>Heartrate</th>
+            <th>Activity</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            </thead>
+            <tbody>
+                <tr v-for="entry in orderedLogs" class="" v-on:click="selectedLog=entry" v-bind:class="{ selectedRow: entry == selectedLog }">
+                    <td><span>{{ entry.date | dateFormat }}</span></td>
+                    <td>{{ entry.feeling }}</td>
+                    <td>{{ entry.activity }}</td>
+                    <td>{{ entry.comment }}</td>
+                    <td>{{ entry.sleep | sleepFormat}}</td>
+                    <td>{{ entry.restingHeartrate }}</td>
+                    <td>
+                        <div class="box" v-for="act in entry.fitbitActivities"> <strong>{{ act.activityName }}</strong> - {{ act.originalStartTime.substring(11) }}:{{ act.originalStartTime.minutes }} - {{ (act.activeDuration / 1000 / 60) | sleepFormat }} minutes<br /></div>
+                    </td>
+                    <td><button v-if="entry == selectedLog" class="button" v-on:click="editLog(entry)"><i class="fas fa-edit"></i> </button></td>
+                    <td><button v-if="entry == selectedLog" class="button" v-on:click="deleteLog(entry)"><i class="fas fa-trash"></i> </button></td>
+                </tr>
+            </tbody>
+        </table>*@
+    </div>
+</div>
 
         <template>
             <form @@submit.prevent="submit" class="vld-parent" ref="formContainer">

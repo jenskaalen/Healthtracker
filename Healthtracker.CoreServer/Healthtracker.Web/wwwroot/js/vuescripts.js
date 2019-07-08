@@ -29,9 +29,8 @@ var data = {
     logEntries: [],
     fullPage: true,
     logEditorOpen: false,
-    selectedLog: {},
     currentLogPage: 1,
-    chosenLog: {
+    selectedLog: {
         date: new Date().toDateInputValue()
     },
     notificationHub: signalrHub,
@@ -80,8 +79,8 @@ var app = new Vue({
                 });
         },
         postLog: function() {
-            var method = this.chosenId != null ? 'PUT' : 'POST';
-            const url = this.chosenId != null ? '/api/log/' + this.chosenId : '/api/log';
+            var method = this.selectedLog.id !== null ? 'PUT' : 'POST';
+            const url = this.selectedLog.id !== null ? '/api/log/' + this.selectedLog.id : '/api/log';
 
             let loader = this.$loading.show({
                 // Optional parameters
@@ -90,11 +89,11 @@ var app = new Vue({
                 onCancel: this.onCancel,
             });
 
-            console.log(this.chosenLog);
+            console.log(this.selectedLog);
 
             let fetchData = {
                 method: method,
-                body: JSON.stringify(this.chosenLog),
+                body: JSON.stringify(this.selectedLog),
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                 },
@@ -127,7 +126,7 @@ var app = new Vue({
         },
         editLog: function(log) {
             this.logEditorOpen = true;
-            this.chosenLog = log;
+            this.selectedLog = log;
 
             setTimeout(() => {
 
@@ -157,7 +156,7 @@ var app = new Vue({
                 });
         },
         resetLogEdit: function() {
-            this.chosenLog = {
+            this.selectedLog = {
                 date: new Date().toDateInputValue(),
                 feeling: _.orderBy(this.logEntries, 'date', 'desc')[0].feeling
             };
