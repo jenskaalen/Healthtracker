@@ -37,9 +37,10 @@ namespace Healthtracker.Web.Services
 
                 if (job != null)
                 {
+                    IClientProxy user = this.hubContext.Clients.User(job.UserId);
+                    await user.SendAsync("ReceiveMessage", "beee", $"{job.Name} is starting...");
                     await job.Start();
 
-                    IClientProxy user = this.hubContext.Clients.User(job.UserId);
                     await user.SendAsync("ReceiveMessage", "beee", $"{job.Name} synchronization has finished");
                 }
 
