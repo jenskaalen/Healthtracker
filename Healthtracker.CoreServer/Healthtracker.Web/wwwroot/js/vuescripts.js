@@ -149,10 +149,6 @@ var app = new Vue({
                     this.logEntries = response;
                     loader.hide();
 
-                    // signalrHub.invoke("SendMessage", "user123", "new page").catch(function(err) {
-                    //     return console.error(err.toString());
-                    // });
-
                 }).catch(() => {
                     alert('uh-oh, something went wrong');
                 });
@@ -196,7 +192,6 @@ var app = new Vue({
 
                     setTimeout(() => {
                         loader.hide();
-                        // this.getEntries();
                     }, 500);
                 }).catch((error) => {
                     alert('Uh-oh, something went wrong: ' + error);
@@ -225,7 +220,6 @@ var app = new Vue({
             //TODO: remove deleted item from the table
             fetch(url, fetchData)
                 .then(response => {
-                    // data.logEntries = data.logEntries.filter(item => item !== log);
                     console.log('deleted log');
                     this.$toasted.show('Log deleted!');
                     this.getEntries();
@@ -256,29 +250,21 @@ var app = new Vue({
     },
     computed: {
         orderedLogs: function() {
-            //var logs = this.logEntries.filter(log => log.comment.indexOf(this.filter) > 0)
-
             return _.orderBy(this.logEntries, 'date', 'desc');
         },
         suggestionNotInActivities: function() {
-            // return this.activities.map(val => this.activitySuggestions.indexOf(val.name) < 0);
             return this.activitySuggestions.filter(val => this.selectedLog.activities.map(x => x.name).indexOf(val) < 0);
         },
         suggestionNotInSupplements: function() {
-            // return this.activities.map(val => this.activitySuggestions.indexOf(val.name) < 0);
             return this.supplementSuggestions.filter(val => this.selectedLog.supplements.map(x => x).indexOf(val) < 0);
         }
     },
     created: function() {
         this.getEntries();
-        // let toasty = this.$toasted;
 
-
-        let toastfuck = this.$toasted;
-        // let that = this;
+        let toaster = this.$toasted;
         this.notificationHub.on("ReceiveMessage", (user, message) => {
-            toastfuck.show(message);
-            // that.getEntries();
+            toaster.show(message);
         });
 
         this.notificationHub.start();

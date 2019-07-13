@@ -53,7 +53,6 @@
                                     </span>
                                 </a>
                             </div>
-                            <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
                         </div>
                         <div class="field">
                             <div class="control">
@@ -61,7 +60,6 @@
                                     <div v-for="act in suggestionNotInActivities" class="tag button" v-on:click="addActivity(act)">
                                         <span class="">
                                             {{ act }}
-                                            @*<button class="add is-small" v-on:click="removeFromActivities(act)"></button>*@
                                         </span>
                                         <span class="icon is-small">
                                             <i class="fas fa-plus"></i>
@@ -94,7 +92,6 @@
                                     </span>
                                 </a>
                             </div>
-                            <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
                         </div>
                         <div class="field">
                             <div class="control">
@@ -102,7 +99,6 @@
                                     <div v-for="supp in suggestionNotInSupplements"  class="tag button" v-on:click="addSupplement(supp)">
                                         <span class="">
                                             {{ supp }}
-                                            @*<button class="add is-small" v-on:click="removeFromActivities(act)"></button>*@
                                         </span>
                                         <span class="icon is-small">
                                             <i class="fas fa-plus"></i>
@@ -128,7 +124,6 @@
                             <div class="controll">
                                 <textarea v-model="selectedLog.comment" name="commentArea" class="textarea" id="" cols="30" rows="4"></textarea>
                             </div>
-                            <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
                         </div>
 
                         <div class="field" id="formActionButtons">
@@ -152,12 +147,6 @@
         <div class="level">
             <nav class="pagination level-item" role="navigation" aria-label="pagination">
                 <ul class="pagination-list">
-                    @*<li>
-                    <a class="pagination-link" aria-label="Goto page 1">1</a>
-                </li>
-                <li>
-                    <span class="pagination-ellipsis">&hellip;</span>
-                </li>*@
                     <li>
                         <a v-if="currentLogPage > 1" class="pagination-link" aria-label="Goto page 45" v-on:click="previousPage()">{{ currentLogPage - 1 }}</a>
                         <a v-if="currentLogPage <= 1" class="pagination-link" aria-label="Goto page 45"></a>
@@ -169,12 +158,6 @@
                         <a v-if="logEntries.length > 9" class="pagination-link" aria-label="Goto page 47" v-on:click="nextPage()">{{ currentLogPage + 1}}</a>
                         <a v-if="logEntries.length < 10" class="pagination-link" aria-label="Goto page 45"></a>
                     </li>
-                    @*<li>
-                    <span class="pagination-ellipsis">&hellip;</span>
-                </li>
-                <li>
-                    <a class="pagination-link" aria-label="Goto page 86">86</a>
-                </li>*@
                 </ul>
             </nav>
             <div class="level-right">
@@ -217,41 +200,11 @@
                 <article class="tile is-child box  is-3" v-if="entry.activity != null || entry.fitbitActivities || entry.activities">
                     <p class="title is-5">Activities</p>
                     <div v-for="act in entry.activities"><strong>{{ act.name }}</strong><br /></div>
-                    @*<div>{{ entry.activity }}</div>*@
                     <div class="" v-for="act in entry.fitbitActivities"> <strong>{{ act.activityName }}</strong> - {{ act.originalStartTime.substring(11) }}:{{ act.originalStartTime.minutes }} - {{ (act.activeDuration / 1000 / 60) | sleepFormat }} minutes<br /></div>
 
                 </article>
             </div>
         </div>
-
-        @*<table class="table is-striped is-bordered is-hoverable is-fullwidth logEntryGrid">
-            <thead>
-            <th>Date</th>
-            <th>Feeling</th>
-            <th>Activity</th>
-            <th>Comment</th>
-            <th>Sleep</th>
-            <th>Heartrate</th>
-            <th>Activity</th>
-            <th>Edit</th>
-            <th>Delete</th>
-            </thead>
-            <tbody>
-                <tr v-for="entry in orderedLogs" class="" v-on:click="selectedLog=entry" v-bind:class="{ selectedRow: entry == selectedLog }">
-                    <td><span>{{ entry.date | dateFormat }}</span></td>
-                    <td>{{ entry.feeling }}</td>
-                    <td>{{ entry.activity }}</td>
-                    <td>{{ entry.comment }}</td>
-                    <td>{{ entry.sleep | sleepFormat}}</td>
-                    <td>{{ entry.restingHeartrate }}</td>
-                    <td>
-                        <div class="box" v-for="act in entry.fitbitActivities"> <strong>{{ act.activityName }}</strong> - {{ act.originalStartTime.substring(11) }}:{{ act.originalStartTime.minutes }} - {{ (act.activeDuration / 1000 / 60) | sleepFormat }} minutes<br /></div>
-                    </td>
-                    <td><button v-if="entry == selectedLog" class="button" v-on:click="editLog(entry)"><i class="fas fa-edit"></i> </button></td>
-                    <td><button v-if="entry == selectedLog" class="button" v-on:click="deleteLog(entry)"><i class="fas fa-trash"></i> </button></td>
-                </tr>
-            </tbody>
-        </table>*@
     </div>
 </div>
 
