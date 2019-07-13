@@ -32,12 +32,15 @@ var data = {
     currentLogPage: 1,
     selectedLog: {
         date: new Date().toDateInputValue(),
-        activities: []
+        activities: [],
+        supplements: []
     },
     notificationHub: signalrHub,
     filter: '',
     newActivity: '',
-    activitySuggestions: []
+    newSupp: '',
+    activitySuggestions: [],
+    supplementSuggestions: []
 };
 
 var app = new Vue({
@@ -57,7 +60,8 @@ var app = new Vue({
             this.selectedLog = {
                 date: new Date().toDateInputValue(),
                 feeling: _.orderBy(this.logEntries, 'date', 'desc')[0].feeling,
-                activities: []
+                activities: [],
+                supplements: []
             };
 
             fetch('/api/LogActivity/suggestions')
@@ -75,11 +79,29 @@ var app = new Vue({
                     alert('uh-oh, something went wrong');
                 });
 
+            fetch('/api/Supplement/suggestions')
+                .then(response => {
+                    if (!response.ok) {
+                        throw Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(response => {
+                    console.log(response);
+                    this.supplementSuggestions = response;
+
+                }).catch(() => {
+                    alert('uh-oh, something went wrong');
+                });
+
             this.logEditorOpen = true;
         },
         removeFromActivities: function(act) {
             console.log('fafa');
             this.selectedLog.activities.splice(this.selectedLog.activities.indexOf(act), 1);
+        },
+        removeFromSupplements: function(supp) {
+            this.selectedLog.supplements.splice(this.selectedLog.supplements.indexOf(supp), 1);
         },
         addActivity: function(act) {
             if (!this.selectedLog.activities) {
@@ -94,6 +116,17 @@ var app = new Vue({
 
             if (this.newActivity === act) {
                 this.newActivity = null;
+            }
+        },
+        addSupplement: function(supp) {
+            if (!this.selectedLog.supplements) {
+                this.selectedLog.supplements = [];
+            }
+
+            this.selectedLog.supplements.push(supp);
+
+            if (this.newSupp === supp) {
+                this.newSupp = null;
             }
         },
         getEntries: function() {
@@ -230,6 +263,10 @@ var app = new Vue({
         suggestionNotInActivities: function() {
             // return this.activities.map(val => this.activitySuggestions.indexOf(val.name) < 0);
             return this.activitySuggestions.filter(val => this.selectedLog.activities.map(x => x.name).indexOf(val) < 0);
+        },
+        suggestionNotInSupplements: function() {
+            // return this.activities.map(val => this.activitySuggestions.indexOf(val.name) < 0);
+            return this.supplementSuggestions.filter(val => this.selectedLog.supplements.map(x => x).indexOf(val) < 0);
         }
     },
     created: function() {

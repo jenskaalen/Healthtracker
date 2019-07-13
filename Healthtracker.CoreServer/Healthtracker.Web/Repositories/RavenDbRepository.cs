@@ -42,6 +42,7 @@ namespace Healthtracker.Web.Repositories
                     existingLog.Sleep = log.Sleep;
                     existingLog.FitbitActivities = log.FitbitActivities;
                     existingLog.Activities = log.Activities;
+                    existingLog.Supplements = log.Supplements;
                     session.SaveChanges();
                     return existingLog;
                 }

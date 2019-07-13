@@ -68,6 +68,7 @@ namespace Healthtracker.Web
             //TODO: lazy load this
             services.AddSingleton<IDocumentStore>(GetDocumentStore());
             services.AddSingleton<IActivitySuggestionsService, ActivitySuggestionsService>();
+            services.AddSingleton<ISupplementSuggestionsService, SupplementSuggestionsService>();
             services.AddSingleton<ISyncQueue, SyncQueue>();
             services.AddSingleton(typeof(ILogRepository), typeof(RavenDbRepository));
             services.AddSingleton(typeof(IFitbitRepository), typeof(FitbitRepository));

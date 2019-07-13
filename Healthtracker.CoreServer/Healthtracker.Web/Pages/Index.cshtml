@@ -43,10 +43,10 @@
                         </div>
                         <div class="field has-addons">
                             <div class="controll">
-                                <input class="input" type="text" name="newActivity" value="" autocomplete="off" v-model="newActivity" v-on:keyup.enter="addActivity" placeholder="Activity" />
+                                <input class="input" type="text" name="newActivity" value="" autocomplete="off" v-model="newActivity" v-on:keyup.enter="addActivity(newActivity)" placeholder="Activity" />
                             </div>
                             <div class="control">
-                                <a class="button is-info" v-on:click="addActivity(newActivity)">
+                                <a class="button is-info" :disabled="!newActivity" v-on:click="addActivity(newActivity)">
                                     <span>Add activity</span>
                                     <span class="icon is-small">
                                         <i class="fas fa-plus"></i>
@@ -59,7 +59,7 @@
                             <div class="control">
                                 <div class="tags">
                                     <div v-for="act in suggestionNotInActivities" class="tag button" v-on:click="addActivity(act)">
-                                        <span class="" >
+                                        <span class="">
                                             {{ act }}
                                             @*<button class="add is-small" v-on:click="removeFromActivities(act)"></button>*@
                                         </span>
@@ -80,18 +80,62 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="field has-addons">
+                            <div class="controll">
+                                <input class="input" type="text" name="newSupp" value="" autocomplete="off" v-model="newSupp" v-on:keyup.enter="addSupplement(newSupp)" placeholder="Supplement" />
+                            </div>
+                            <div class="control">
+                                <a class="button is-info" :disabled="!newSupp" v-on:click="addSupplement(newSupp)">
+                                    <span>Add supplement/meds</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                </a>
+                            </div>
+                            <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
+                        </div>
                         <div class="field">
-                            <label class="label" for="">Comment</label>
+                            <div class="control">
+                                <div class="tags">
+                                    <div v-for="supp in suggestionNotInSupplements"  class="tag button" v-on:click="addSupplement(supp)">
+                                        <span class="">
+                                            {{ supp }}
+                                            @*<button class="add is-small" v-on:click="removeFromActivities(act)"></button>*@
+                                        </span>
+                                        <span class="icon is-small">
+                                            <i class="fas fa-plus"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <div class="tags">
+                                    <span v-for="supp in selectedLog.supplements" class="tag is-info">
+                                        {{ supp }}
+                                        <button class="delete is-small" v-on:click="removeFromSupplements(supp)"></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="">Notes</label>
                             <div class="controll">
                                 <textarea v-model="selectedLog.comment" name="commentArea" class="textarea" id="" cols="30" rows="4"></textarea>
                             </div>
                             <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
                         </div>
 
-                    </div>
-                    <div class="field" id="formActionButtons">
-                        <button class="button is-small is-info is-pulled-left" v-on:click="resetLogEdit">Cancel</button>
-                        <button class="button is-info is-pulled-right" v-on:click="postLog">Submit</button>
+                        <div class="field" id="formActionButtons">
+                            <button class="button is-small is-info is-pulled-left" v-on:click="resetLogEdit">Cancel</button>
+                            <button class="button is-info is-pulled-right" v-on:click="postLog">Submit</button>
+                        </div>
+
                     </div>
                 </div>
             </transition>
