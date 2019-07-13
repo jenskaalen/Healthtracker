@@ -26,7 +26,6 @@ namespace Healthtracker.Web.Controllers
         private readonly IMemoryCache memoryCache;
         private readonly FitbitTokenStorage fitbitTokenStorage;
         private readonly ISyncQueue syncQueue;
-        private readonly SynchronizationService synchronizationService;
         private readonly IntegrationConfig config;
 
         private string UserId => User.Identity.Name;
@@ -40,7 +39,6 @@ namespace Healthtracker.Web.Controllers
             this.memoryCache = memoryCache;
             this.fitbitTokenStorage = fitbitTokenStorage;
             this.syncQueue = syncQueue;
-            this.synchronizationService = synchronizationService;
             this.config = config.Value;
         }
 

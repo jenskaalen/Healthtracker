@@ -31,10 +31,13 @@ var data = {
     logEditorOpen: false,
     currentLogPage: 1,
     selectedLog: {
-        date: new Date().toDateInputValue()
+        date: new Date().toDateInputValue(),
+        activities: []
     },
     notificationHub: signalrHub,
-    filter: ''
+    filter: '',
+    newActivity: '',
+    activitySuggestions: []
 };
 
 var app = new Vue({
@@ -50,6 +53,49 @@ var app = new Vue({
         }
     },
     methods: {
+        addNewLog() {
+            this.selectedLog = {
+                date: new Date().toDateInputValue(),
+                feeling: _.orderBy(this.logEntries, 'date', 'desc')[0].feeling,
+                activities: []
+            };
+
+            fetch('/api/LogActivity/suggestions')
+                .then(response => {
+                    if (!response.ok) {
+                        throw Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(response => {
+                    console.log(response);
+                    this.activitySuggestions = response;
+
+                }).catch(() => {
+                    alert('uh-oh, something went wrong');
+                });
+
+            this.logEditorOpen = true;
+        },
+        removeFromActivities: function(act) {
+            console.log('fafa');
+            this.selectedLog.activities.splice(this.selectedLog.activities.indexOf(act), 1);
+        },
+        addActivity: function(act) {
+            if (!this.selectedLog.activities) {
+                this.selectedLog.activities = [];
+            }
+
+
+            this.selectedLog.activities.push({
+                integrationSource: "User",
+                name: act
+            });
+
+            if (this.newActivity === act) {
+                this.newActivity = null;
+            }
+        },
         getEntries: function() {
             let loader = this.$loading.show({
                 // Optional parameters
@@ -79,8 +125,8 @@ var app = new Vue({
                 });
         },
         postLog: function() {
-            var method = this.selectedLog.id !== null ? 'PUT' : 'POST';
-            const url = this.selectedLog.id !== null ? '/api/log/' + this.selectedLog.id : '/api/log';
+            var method = this.selectedLog.id ? 'PUT' : 'POST';
+            const url = this.selectedLog.id ? '/api/log/' + this.selectedLog.id : '/api/log';
 
             let loader = this.$loading.show({
                 // Optional parameters
@@ -180,6 +226,10 @@ var app = new Vue({
             //var logs = this.logEntries.filter(log => log.comment.indexOf(this.filter) > 0)
 
             return _.orderBy(this.logEntries, 'date', 'desc');
+        },
+        suggestionNotInActivities: function() {
+            // return this.activities.map(val => this.activitySuggestions.indexOf(val.name) < 0);
+            return this.activitySuggestions.filter(val => this.selectedLog.activities.map(x => x.name).indexOf(val) < 0);
         }
     },
     created: function() {

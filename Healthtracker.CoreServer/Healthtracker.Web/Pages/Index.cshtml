@@ -14,7 +14,7 @@
         <div class="column is-one-third">
             <transition name="slide-fade">
                 <div v-if="logEditorOpen">
-                    <form class="" id="logForm">
+                    <div class="" id="logForm">
                         <div class="field">
                             <label class="label" for="">Date</label>
                             <div class="control">
@@ -41,22 +41,54 @@
                             </div>
 
                         </div>
-                        <div class="field">
-                            <label class="label" for="">Activity</label>
+                        <div class="field has-addons">
                             <div class="controll">
-                                <textarea v-model="selectedLog.activity" name="activityArea" class="textarea" id="" cols="30" rows="2"></textarea>
+                                <input class="input" type="text" name="newActivity" value="" autocomplete="off" v-model="newActivity" v-on:keyup.enter="addActivity" placeholder="Activity" />
+                            </div>
+                            <div class="control">
+                                <a class="button is-info" v-on:click="addActivity(newActivity)">
+                                    <span>Add activity</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                </a>
                             </div>
                             <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <div class="tags">
+                                    <div v-for="act in suggestionNotInActivities" class="tag button" v-on:click="addActivity(act)">
+                                        <span class="" >
+                                            {{ act }}
+                                            @*<button class="add is-small" v-on:click="removeFromActivities(act)"></button>*@
+                                        </span>
+                                        <span class="icon is-small">
+                                            <i class="fas fa-plus"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <div class="tags">
+                                    <span v-for="act in selectedLog.activities" class="tag is-info">
+                                        {{ act.name }}
+                                        <button class="delete is-small" v-on:click="removeFromActivities(act)"></button>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div class="field">
                             <label class="label" for="">Comment</label>
                             <div class="controll">
-                                <textarea v-model="selectedLog.comment" name="commentArea" class="textarea" id="" cols="30" rows="6"></textarea>
+                                <textarea v-model="selectedLog.comment" name="commentArea" class="textarea" id="" cols="30" rows="4"></textarea>
                             </div>
                             <!-- <input class="input" v-model="chosenComment" type="text" placeholder="comment"> -->
                         </div>
 
-                    </form>
+                    </div>
                     <div class="field" id="formActionButtons">
                         <button class="button is-small is-info is-pulled-left" v-on:click="resetLogEdit">Cancel</button>
                         <button class="button is-info is-pulled-right" v-on:click="postLog">Submit</button>
@@ -103,7 +135,7 @@
             </nav>
             <div class="level-right">
                 <div class="level-item" v-if="!logEditorOpen">
-                    <a class="button is-info" v-on:click="logEditorOpen=true">
+                    <a class="button is-info" v-on:click="addNewLog">
                         <span class="icon">
                             <i class="fas fa-plus"></i>
                         </span>
@@ -138,9 +170,10 @@
                     <p class="has-text-weight-bold">Resting heart rate</p>
                     <p>{{ entry.restingHeartrate }} beats per minute</p>
                 </article>
-                <article class="tile is-child box  is-3" v-if="entry.activity != null || (entry.fitbitActivities != null && entry.fitbitActivities.length > 0)">
+                <article class="tile is-child box  is-3" v-if="entry.activity != null || entry.fitbitActivities || entry.activities">
                     <p class="title is-5">Activities</p>
-                    <div>{{ entry.activity }}</div>
+                    <div v-for="act in entry.activities"><strong>{{ act.name }}</strong><br /></div>
+                    @*<div>{{ entry.activity }}</div>*@
                     <div class="" v-for="act in entry.fitbitActivities"> <strong>{{ act.activityName }}</strong> - {{ act.originalStartTime.substring(11) }}:{{ act.originalStartTime.minutes }} - {{ (act.activeDuration / 1000 / 60) | sleepFormat }} minutes<br /></div>
 
                 </article>

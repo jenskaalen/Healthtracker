@@ -22,6 +22,8 @@ namespace Healthtracker.Web.Model
         public string UserId { get; set; }
         public DateTime Date { get; set; }
         public string Activity { get; set; }
+        public List<LogActivity> Activities { get; set; }
+        public List<string> Supplements { get; set; }
         public string Comment { get; set; }
         public int Feeling { get; set; }
         public int RestingHeartrate { get; set; }

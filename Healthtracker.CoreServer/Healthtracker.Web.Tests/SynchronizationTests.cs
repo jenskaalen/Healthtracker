@@ -2,6 +2,7 @@
 using Healthtracker.Web.Model;
 using Healthtracker.Web.Services.Synchronization;
 using NUnit.Framework;
+using Raven.TestDriver;
 using System;
 using System.Collections.Generic;
 using System.Text;

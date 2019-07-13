@@ -20,6 +20,7 @@ using Healthtracker.Web.Model;
 using Healthtracker.Web.Hubs;
 using Healthtracker.Web.Services.Synchronization;
 using Microsoft.AspNetCore.SignalR;
+using Raven.Client.Documents;
 
 namespace Healthtracker.Web
 {
@@ -64,6 +65,9 @@ namespace Healthtracker.Web
             );
 
             services.AddSingleton<IUserIdProvider, UsernameIdProvider>();
+            //TODO: lazy load this
+            services.AddSingleton<IDocumentStore>(GetDocumentStore());
+            services.AddSingleton<IActivitySuggestionsService, ActivitySuggestionsService>();
             services.AddSingleton<ISyncQueue, SyncQueue>();
             services.AddSingleton(typeof(ILogRepository), typeof(RavenDbRepository));
             services.AddSingleton(typeof(IFitbitRepository), typeof(FitbitRepository));
@@ -74,6 +78,22 @@ namespace Healthtracker.Web
             services.AddSignalR();
 
             
+        }
+
+        private static DocumentStore GetDocumentStore()
+        {
+            var doc = new DocumentStore()
+            {
+                Urls = new string[] { "http://10.0.0.95:8080" },
+                Database = "LogDb",
+                Conventions =
+                    {
+                        FindIdentityProperty = prop => prop.Name == "DocumentId"
+                    }
+            };
+
+            doc.Initialize();
+            return doc; 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
