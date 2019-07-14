@@ -22,6 +22,10 @@ $info: $purple;
     cursor: pointer;
 }
 
+.logparent {
+    flex-wrap: wrap;
+}
+
 .selectedRow {
     /* font-weight: 550; */
     border: solid 2px #bebebe;

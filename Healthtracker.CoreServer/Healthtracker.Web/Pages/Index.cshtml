@@ -6,7 +6,7 @@
 
 @{ if (User.Identity.IsAuthenticated)
     {
-<div id="app" class="section">
+<div id="app" class="section ">
 
 
     <div class="columns">
@@ -173,8 +173,8 @@
         </div>
 
 
-        <div class="tile is-ancestor" v-for="entry in orderedLogs" v-on:click="selectedLog=entry" v-bind:class="{ selectedRow: entry == selectedLog }">
-            <div class="tile is-parent">
+        <div class="tile is-ancestor " v-for="entry in orderedLogs" v-on:click="selectedLog=entry" v-bind:class="{ selectedRow: entry == selectedLog }">
+            <div class="tile is-parent logparent">
                 <article class="tile is-child box is-3">
                     <p class=""><strong>Date</strong></p>
                     <p>{{ entry.date | dateFormat }}</p>
@@ -189,18 +189,23 @@
                     <p class="title is-5">Comment</p>
                     <p>{{ entry.comment }}</p>
                 </article>
-                <article class="tile is-child box is-3">
+                <article class="tile is-child box is-3" v-if="entry.sleep || entry.restingHeartrate">
                     <p class="title is-5">Body & sleep</p>
                     <p class="has-text-weight-bold">Sleep</p>
                     <p>{{ entry.sleep | sleepFormat }} hours</p>
 
                     <p class="has-text-weight-bold">Resting heart rate</p>
-                    <p>{{ entry.restingHeartrate }} beats per minute</p>
+                    <p>{{ entry.restingHeartrate }}</p>
                 </article>
-                <article class="tile is-child box  is-3" v-if="entry.activity != null || entry.fitbitActivities || entry.activities">
+                <article class="tile is-child box  is-3" v-if="entry.activity || entry.fitbitActivities || entry.activities">
                     <p class="title is-5">Activities</p>
                     <div v-for="act in entry.activities"><strong>{{ act.name }}</strong><br /></div>
                     <div class="" v-for="act in entry.fitbitActivities"> <strong>{{ act.activityName }}</strong> - {{ act.originalStartTime.substring(11) }}:{{ act.originalStartTime.minutes }} - {{ (act.activeDuration / 1000 / 60) | sleepFormat }} minutes<br /></div>
+
+                </article>
+                <article class="tile is-child box is-3" v-if="entry.supplements">
+                    <p class="title is-5">Supplements/medicines</p>
+                    <div v-for="supp in entry.supplements"><strong>{{ supp }}</strong><br /></div>
 
                 </article>
             </div>
