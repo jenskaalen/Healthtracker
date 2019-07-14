@@ -1,6 +1,6 @@
 ﻿namespace Healthtracker.Web.Services
 {
-    public enum Setting
+    public enum AuthSetting
     {
         FitbitSecret,
         FitbitClient,

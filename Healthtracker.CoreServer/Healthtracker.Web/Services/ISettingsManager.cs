@@ -6,6 +6,6 @@ namespace Healthtracker.Web.Services
 {
     public interface ISettingsManager
     {
-        string GetSetting(Setting setting);
+        string GetSetting(AuthSetting setting);
     }
 }
