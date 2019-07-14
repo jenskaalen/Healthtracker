@@ -64,36 +64,6 @@ var app = new Vue({
                 supplements: []
             };
 
-            fetch('/api/LogActivity/suggestions')
-                .then(response => {
-                    if (!response.ok) {
-                        throw Error(response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(response => {
-                    console.log(response);
-                    this.activitySuggestions = response;
-
-                }).catch(() => {
-                    alert('uh-oh, something went wrong');
-                });
-
-            fetch('/api/Supplement/suggestions')
-                .then(response => {
-                    if (!response.ok) {
-                        throw Error(response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(response => {
-                    console.log(response);
-                    this.supplementSuggestions = response;
-
-                }).catch(() => {
-                    alert('uh-oh, something went wrong');
-                });
-
             this.logEditorOpen = true;
         },
         removeFromActivities: function(act) {
@@ -253,10 +223,10 @@ var app = new Vue({
             return _.orderBy(this.logEntries, 'date', 'desc');
         },
         suggestionNotInActivities: function() {
-            return this.activitySuggestions.filter(val => this.selectedLog.activities.map(x => x.name).indexOf(val) < 0);
+            return this.activitySuggestions.filter(val => !this.selectedLog.activities || this.selectedLog.activities.map(x => x.name).indexOf(val) < 0);
         },
         suggestionNotInSupplements: function() {
-            return this.supplementSuggestions.filter(val => this.selectedLog.supplements.map(x => x).indexOf(val) < 0);
+            return this.supplementSuggestions.filter(val => !this.selectedLog.supplements || this.selectedLog.supplements.map(x => x).indexOf(val) < 0);
         }
     },
     created: function() {
@@ -266,6 +236,37 @@ var app = new Vue({
         this.notificationHub.on("ReceiveMessage", (user, message) => {
             toaster.show(message);
         });
+
+        fetch('/api/LogActivity/suggestions')
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response.json();
+            })
+            .then(response => {
+                console.log(response);
+                this.activitySuggestions = response;
+
+            }).catch(() => {
+                alert('uh-oh, something went wrong');
+            });
+
+        fetch('/api/Supplement/suggestions')
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response.json();
+            })
+            .then(response => {
+                console.log(response);
+                this.supplementSuggestions = response;
+
+            }).catch(() => {
+                alert('uh-oh, something went wrong');
+            });
+
 
         this.notificationHub.start();
     }
