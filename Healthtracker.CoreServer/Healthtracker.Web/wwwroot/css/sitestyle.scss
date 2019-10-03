@@ -31,10 +31,27 @@ $info: $purple;
     border: solid 2px #bebebe;
 }
 
-// .logEntryGrid tr {
-//     cursor: pointer;
-// }
-#logEntryGrid tr button {}
+$sizez: (0,
+10,
+15,
+20,
+25,
+30,
+50);
+$positions: ('top',
+'left',
+'bottom',
+'right');
+@each $size in $sizez {
+    @each $position in $positions {
+        .m#{str-slice($position, 0, 1)}-#{$size} {
+            margin-#{$position}: $size + px;
+        }
+        .p#{str-slice($position, 0, 1)}-#{$size} {
+            padding-#{$position}: $size + px;
+        }
+    }
+}
 
 #formActionButtons {
     padding-top: 10px;

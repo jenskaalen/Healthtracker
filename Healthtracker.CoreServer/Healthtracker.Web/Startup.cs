@@ -21,6 +21,7 @@ using Healthtracker.Web.Hubs;
 using Healthtracker.Web.Services.Synchronization;
 using Microsoft.AspNetCore.SignalR;
 using Raven.Client.Documents;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Healthtracker.Web
 {
@@ -44,7 +45,7 @@ namespace Healthtracker.Web
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                options.UseSqlite(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -61,6 +62,7 @@ namespace Healthtracker.Web
                 options.ClientId = config.GoogleClientId;
                 options.ClientSecret = config.GoogleClientSecret;
                 options.CallbackPath = "/signin-google";
+                options.SaveTokens = true;
             }
             );
 
@@ -83,9 +85,12 @@ namespace Healthtracker.Web
 
         private static DocumentStore GetDocumentStore()
         {
+            X509Certificate2 clientCertificate = new X509Certificate2("certi.pfx", "FEANturi2");
+
             var doc = new DocumentStore()
             {
-                Urls = new string[] { "http://10.0.0.95:8080" },
+                Urls = new string[] { "https://a.healthbonto.ravendb.community:4343" },
+                Certificate = clientCertificate,
                 Database = "LogDb",
                 Conventions =
                     {
@@ -120,7 +125,7 @@ namespace Healthtracker.Web
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 

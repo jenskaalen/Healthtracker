@@ -12,5 +12,6 @@ namespace Healthtracker.Web.Repositories
         Log Update(Log log);
         List<Log> GetAll(string userId);
         List<Log> Get(int logsPerPage, int logsToSkip, string userId);
+        List<Log> Search(string text, string userId);
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Healthtracker.Web.Model;
 using Raven.Client.Documents;
+using Raven.Client.Documents.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Healthtracker.Web.Repositories
 {
@@ -102,11 +104,27 @@ namespace Healthtracker.Web.Repositories
             return result;
         }
 
+        public List<Log> Search(string text, string userId)
+        {
+            using (var session = _store.OpenSession())
+            {
+                return session.Query<Log>()
+                    .Where(x => x.UserId == userId)
+                    .Search(x => x.Comment, $"*{text}*")
+                    //.Include(x => x.FitbitActivities)
+                    .OrderByDescending(log => log.Date)
+                    .ToList();
+            }
+        }
+
         private DocumentStore GetDocumentStore()
         {
+            X509Certificate2 clientCertificate = new X509Certificate2("certi.pfx", "FEANturi2");
+
             return new DocumentStore()
             {
-                Urls = new string[] { "http://10.0.0.95:8080" },
+                Urls = new string[] { "https://a.healthbonto.ravendb.community:4343" },
+                Certificate = clientCertificate,
                 Database = "LogDb",
                 Conventions =
                     {

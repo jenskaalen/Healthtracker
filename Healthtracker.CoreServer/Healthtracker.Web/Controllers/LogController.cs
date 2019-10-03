@@ -32,6 +32,7 @@ namespace Healthtracker.Web.Controllers
         [HttpGet]
         public IEnumerable<Log> Get()
         {
+            string or = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
             return _logRepository.GetAll(UserId);
         }
 
@@ -40,6 +41,13 @@ namespace Healthtracker.Web.Controllers
         public string Get(int id)
         {
             throw new NotImplementedException();
+        }
+
+        // GET: api/Log/5
+        [HttpGet("query/{text}")]
+        public List<Log> Search(string text)
+        {
+            return _logRepository.Search(text, UserId);
         }
 
         [HttpGet("page/{index}")]

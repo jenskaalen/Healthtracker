@@ -53,7 +53,9 @@ namespace Healthtracker.Web.Controllers
             postbody.Add("clientId", config.FitbitClientId);
             postbody.Add("grant_type", "authorization_code");
             postbody.Add("code", code);
-            postbody.Add("redirect_uri", "https://localhost:44354/signin-fitbit");
+
+            string baseUrl = $"{this.Request.Scheme}://{this.Request.Host}";
+            postbody.Add("redirect_uri", $"{baseUrl}/signin-fitbit");
 
             request.Headers.Add("Authorization", $"Basic { config.FitbitClientBase64}");
             request.Headers.Add("User-Agent", "HttpClientFactory-Sample");

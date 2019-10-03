@@ -41,12 +41,12 @@
                             </div>
 
                         </div>
-                        <div class="field has-addons">
+                        <div class="field has-addons pt-20">
                             <div class="controll">
                                 <input class="input" type="text" name="newActivity" value="" autocomplete="off" v-model="newActivity" v-on:keyup.enter="addActivity(newActivity)" placeholder="Activity" />
                             </div>
                             <div class="control">
-                                <a class="button is-info" :disabled="!newActivity" v-on:click="addActivity(newActivity)">
+                                <a class="button" :disabled="!newActivity" v-on:click="addActivity(newActivity)">
                                     <span>Add activity</span>
                                     <span class="icon is-small">
                                         <i class="fas fa-plus"></i>
@@ -80,12 +80,12 @@
                         </div>
 
 
-                        <div class="field has-addons">
+                        <div class="field has-addons pt-20">
                             <div class="controll">
                                 <input class="input" type="text" name="newSupp" value="" autocomplete="off" v-model="newSupp" v-on:keyup.enter="addSupplement(newSupp)" placeholder="Supplement" />
                             </div>
                             <div class="control">
-                                <a class="button is-info" :disabled="!newSupp" v-on:click="addSupplement(newSupp)">
+                                <a class="button" :disabled="!newSupp" v-on:click="addSupplement(newSupp)">
                                     <span>Add supplement/meds</span>
                                     <span class="icon is-small">
                                         <i class="fas fa-plus"></i>
@@ -119,7 +119,7 @@
                             </div>
                         </div>
 
-                        <div class="field">
+                        <div class="field pt-20">
                             <label class="label" for="">Notes</label>
                             <div class="controll">
                                 <textarea v-model="selectedLog.comment" name="commentArea" class="textarea" id="" cols="30" rows="4"></textarea>
@@ -127,7 +127,7 @@
                         </div>
 
                         <div class="field" id="formActionButtons">
-                            <button class="button is-small is-info is-pulled-left" v-on:click="resetLogEdit">Cancel</button>
+                            <button class="button is-small is-pulled-left" v-on:click="resetLogEdit">Cancel</button>
                             <button class="button is-info is-pulled-right" v-on:click="postLog">Submit</button>
                         </div>
 
@@ -160,6 +160,9 @@
                     </li>
                 </ul>
             </nav>
+            <div class="level-item">
+                <input class="input" type="text" name="search" value="" autocomplete="off" v-model="search" v-on:change="searchLogs(logs)" placeholder="Search" />
+            </div>
             <div class="level-right">
                 <div class="level-item" v-if="!logEditorOpen">
                     <a class="button is-info" v-on:click="addNewLog">
@@ -173,39 +176,46 @@
         </div>
 
 
-        <div class="tile is-ancestor " v-for="entry in orderedLogs" v-on:click="selectedLog=entry" v-bind:class="{ selectedRow: entry == selectedLog }">
+        <div class="tile is-ancestor " v-for="entry in orderedLogs" v-on:dblclick="editLog(entry)" v-on:click="selectedLog=entry" v-bind:class="{ selectedRow: entry == selectedLog }">
             <div class="tile is-parent logparent">
                 <article class="tile is-child box is-3">
-                    <p class=""><strong>Date</strong></p>
-                    <p>{{ entry.date | dateFormat }}</p>
-                    <p class="has-text-weight-bold">Feeling</p>
-                    <p>{{ entry.feeling }}</p>
+                    <p class="title is-6 has-text-grey">Day</p>
+                    @*<p class=""><span>Date</span></p>*@
+                    <p  class="has-text-weight-semibold">{{ entry.date | dateFormat }}</p>
+                    <span>
+                        <span class="has-text-grey">Feeling about</span>
+                        <span class="has-text-weight-semibold">{{ entry.feeling }}</span>
+                    </span>
                     <div class="is-pulled-right">
                         <button v-if="entry == selectedLog" class="button" v-on:click="editLog(entry)"><i class="fas fa-edit"></i> </button>
                         <button v-if="entry == selectedLog" class="button" v-on:click="deleteLog(entry)"><i class="fas fa-trash"></i> </button>
                     </div>
                 </article>
                 <article class="tile is-child box is-3">
-                    <p class="title is-5">Comment</p>
+                    <p class="title is-6 has-text-grey">Comment</p>
                     <p>{{ entry.comment }}</p>
                 </article>
                 <article class="tile is-child box is-3" v-if="entry.sleep || entry.restingHeartrate">
-                    <p class="title is-5">Body & sleep</p>
-                    <p class="has-text-weight-bold">Sleep</p>
-                    <p>{{ entry.sleep | sleepFormat }} hours</p>
+                    <p class="title is-6 has-text-grey">Body & sleep</p>
 
-                    <p class="has-text-weight-bold">Resting heart rate</p>
-                    <p>{{ entry.restingHeartrate }}</p>
+                    <p>
+                        <span class="">{{ entry.sleep | sleepFormat }}</span><span class="has-text-grey"> hours sleep</span>
+                    </p>
+                    <p>
+                                                                        <span class="">{{ entry.restingHeartrate }}</span>
+                                                                        <span class="has-text-grey">resting heart rate</span>
+                                                                    </p>
+
                 </article>
                 <article class="tile is-child box  is-3" v-if="entry.activity || entry.fitbitActivities || entry.activities">
-                    <p class="title is-5">Activities</p>
-                    <div v-for="act in entry.activities"><strong>{{ act.name }}</strong><br /></div>
+                    <p class="title is-6 has-text-grey">Activities</p>
+                    <div v-for="act in entry.activities"><span>{{ act.name }}</span><br /></div>
                     <div class="" v-for="act in entry.fitbitActivities"> <strong>{{ act.activityName }}</strong> - {{ act.originalStartTime.substring(11) }}:{{ act.originalStartTime.minutes }} - {{ (act.activeDuration / 1000 / 60) | sleepFormat }} minutes<br /></div>
 
                 </article>
                 <article class="tile is-child box is-3" v-if="entry.supplements">
-                    <p class="title is-5">Supplements/medicines</p>
-                    <div v-for="supp in entry.supplements"><strong>{{ supp }}</strong><br /></div>
+                    <p class="title is-6 has-text-grey">Supplements/medicines</p>
+                    <div v-for="supp in entry.supplements"><span>{{ supp }}</span><br /></div>
 
                 </article>
             </div>

@@ -40,7 +40,8 @@ var data = {
     newActivity: '',
     newSupp: '',
     activitySuggestions: [],
-    supplementSuggestions: []
+    supplementSuggestions: [],
+    search: ''
 };
 
 var app = new Vue({
@@ -205,6 +206,35 @@ var app = new Vue({
             };
             this.logEditorOpen = false;
         },
+        searchLogs: function() {
+            if (!this.search) {
+                this.getEntries();
+                return;
+            }
+
+            let loader = this.$loading.show({
+                // Optional parameters
+                container: this.fullPage ? null : this.$refs.formContainer,
+                canCancel: true,
+                onCancel: this.onCancel,
+            });
+
+            const url = '/api/log/query/' + this.search;
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(response => {
+                    this.logEntries = response;
+                    loader.hide();
+
+                }).catch(() => {
+                    alert('uh-oh, something went wrong');
+                });
+        },
         nextPage: function() {
             this.currentLogPage = this.currentLogPage + 1;
             this.getEntries();
@@ -227,6 +257,9 @@ var app = new Vue({
         },
         suggestionNotInSupplements: function() {
             return this.supplementSuggestions.filter(val => !this.selectedLog.supplements || this.selectedLog.supplements.map(x => x).indexOf(val) < 0);
+        },
+        searchChanged: function() {
+
         }
     },
     created: function() {
