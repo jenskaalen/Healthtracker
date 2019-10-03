@@ -5,19 +5,7 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h2>Integrations</h2>
-
-@*<a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22DR79&redirect_uri=https%3A%2F%2Flocalhost%3A44354%2Fsignin-fitbit&scope=activity%20heartrate%20sleep%20weight&expires_in=604800">Synchronize fitbit</a>*@
-@*<a class="button is-large" href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22DR79&redirect_uri=https%3A%2F%2Flocalhost%3A44354%2Fsignin-fitbit&scope=activity%20heartrate%20sleep%20weight&expires_in=604800">
-    <span class="icon is-medium">
-        <i class="fas fa-running fa"></i>
-    </span>
-    <span>Synchronize Fitbit</span>
-</a>*@
-
-@{ 
-<p>Request.Host.Value</p>
-}
+<div class="title is-4">Integrations</div>
 
 <environment include="Development">
     <a class="button is-large" href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22DR79&redirect_uri=https%3A%2F%2Flocalhost%3A44354%2Fsignin-fitbit&scope=activity%20heartrate%20sleep%20weight&expires_in=604800">
