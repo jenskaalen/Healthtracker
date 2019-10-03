@@ -42,7 +42,7 @@
 
                         </div>
                         <div class="field has-addons pt-20">
-                            <div class="controll">
+                            <div class="control">
                                 <input class="input" type="text" name="newActivity" value="" autocomplete="off" v-model="newActivity" v-on:keyup.enter="addActivity(newActivity)" placeholder="Activity" />
                             </div>
                             <div class="control">
@@ -160,10 +160,14 @@
                     </li>
                 </ul>
             </nav>
-            <div class="level-item">
-                <input class="input" type="text" name="search" value="" autocomplete="off" v-model="search" v-on:change="searchLogs(logs)" placeholder="Search" />
-            </div>
             <div class="level-right">
+                <div class="level-item ">
+                    <div class="columns ">
+                        <div class="column">
+                            <input class="input" type="text" name="search" value="" autocomplete="off" v-model="search" v-on:change="searchLogs(logs)" placeholder="Search" />
+                        </div>
+                    </div>
+                </div>
                 <div class="level-item" v-if="!logEditorOpen">
                     <a class="button is-info" v-on:click="addNewLog">
                         <span class="icon">
