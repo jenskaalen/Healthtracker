@@ -26,7 +26,7 @@ namespace Healthtracker.Web.Tests
 
 
         [Test]
-        public void TestIt()
+        public void AddActivity()
         {
             ConfigureServer(new TestServerOptions
             {
@@ -74,15 +74,15 @@ namespace Healthtracker.Web.Tests
                 Assert.AreEqual(activity1.Name, suggestions[0]);
                 Assert.AreEqual(activity2.Name, suggestions[1]);
             }
-        }
+        } 
     }
 
-    public class LogByName : AbstractIndexCreationTask<Log>
-    {
-        public LogByName()
-        {
-            Map = logs => from log in logs select new { log.DocumentId};
-            Indexes.Add(x => x.DocumentId, FieldIndexing.Search);
-        }
-    }
+    //public class LogByName : AbstractIndexCreationTask<Log>
+    //{
+    //    public LogByName()
+    //    {
+    //        Map = logs => from log in logs select new { log.DocumentId};
+    //        Indexes.Add(x => x.DocumentId, FieldIndexing.Search);
+    //    }
+    //}
 }

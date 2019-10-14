@@ -71,8 +71,9 @@ namespace Healthtracker.Web
             services.AddSingleton<IDocumentStore>(GetDocumentStore());
             services.AddSingleton<IActivitySuggestionsService, ActivitySuggestionsService>();
             services.AddSingleton<ISupplementSuggestionsService, SupplementSuggestionsService>();
+            services.AddSingleton<IActivitySearchService, ActivitySearchService>();
             services.AddSingleton<ISyncQueue, SyncQueue>();
-            services.AddSingleton(typeof(ILogRepository), typeof(RavenDbRepository));
+            services.AddSingleton(typeof(ILogRepository), typeof(RavenLogRepository));
             services.AddSingleton(typeof(IFitbitRepository), typeof(FitbitRepository));
             services.AddSingleton(typeof(FitbitTokenStorage));
             services.AddHttpClient();

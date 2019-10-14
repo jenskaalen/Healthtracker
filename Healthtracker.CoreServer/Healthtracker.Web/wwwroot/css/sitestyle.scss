@@ -11,18 +11,24 @@ sans-serif;
 // }
 $body-family: "Athiti",
 sans-serif;
-$purple: #8A4D76;
+$purple: rgb(128,
+61,
+105);
+$purple-lighter: lighten($purple,
+10%);
 $bluegray: rgb(78,
 122,
 143);
-$primary: $bluegray;
-$info: $purple;
+$primary: lighten($bluegray,
+10%);
+$info: $purple-lighter;
+$text-faded: #444444;
 .tile.is-parent {
-    background-color: lighten($bluegray, 50%);
+    // background-color: lighten($bluegray, 50%);
     cursor: pointer;
 }
 
-$link: $purple;
+$link: $info;
 .logparent {
     flex-wrap: wrap;
 }
@@ -30,6 +36,29 @@ $link: $purple;
 .selectedRow {
     /* font-weight: 550; */
     border: solid 2px #bebebe;
+}
+
+.label.faded {
+    color: $text-faded;
+}
+
+body {
+    background-color: #f3f3f3;
+}
+
+#logViewer .tile.is-ancestor {
+    margin-bottom: 65px;
+}
+
+nav.pagination ul li a {
+    background-color: #ffffff;
+}
+
+.column #logForm {
+    padding: 20px 30px;
+    border: 1px solid white;
+    border-radius: 10px;
+    background-color: white;
 }
 
 $sizez: (0,
@@ -83,7 +112,7 @@ $positions: ('top',
 
 .navbar-section a {
     background: lighten($primary, 10%);
-    border: none;
+    border: 1px solid darkgrey;
     margin-left: 2em;
 }
 

@@ -13,11 +13,15 @@ namespace Healthtracker.Web.Controllers
     public class LogActivityController : ControllerBase
     {
         private readonly IActivitySuggestionsService activitySuggestionsService;
+        private readonly IActivitySearchService activitySearchService;
+        private readonly int SearchCountLimit = 5;
+
         private string UserId => User.Identity.Name;
 
-        public LogActivityController(IActivitySuggestionsService activitySuggestionsService)
+        public LogActivityController(IActivitySuggestionsService activitySuggestionsService, IActivitySearchService activitySearchService)
         {
             this.activitySuggestionsService = activitySuggestionsService;
+            this.activitySearchService = activitySearchService;
         }
 
         [Route("suggestions")]
@@ -25,6 +29,12 @@ namespace Healthtracker.Web.Controllers
         {
             int maxSuggestionCount = 10;
             return activitySuggestionsService.GetSuggestions(UserId, maxSuggestionCount);
+        }
+
+        [Route("search")]
+        public List<string> Search(string text)
+        {
+            return activitySearchService.Search(text, UserId, SearchCountLimit);
         }
     }
 }

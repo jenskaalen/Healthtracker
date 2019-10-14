@@ -10,7 +10,6 @@ namespace Healthtracker.Web.Services
 {
     public class ActivitySuggestionsService : IActivitySuggestionsService
     {
-        private readonly ILogRepository logRepository;
         private readonly IDocumentStore _store;
 
         public ActivitySuggestionsService(IDocumentStore store)

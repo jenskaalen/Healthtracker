@@ -11,18 +11,18 @@
 
     <div class="columns">
         <div class="column"></div>
-        <div class="column is-one-third">
+        <div class="column is-half">
             <transition name="slide-fade">
                 <div v-if="logEditorOpen">
                     <div class="" id="logForm">
                         <div class="field">
-                            <label class="label" for="">Date</label>
+                            <label class="label has-text-grey" for="">Date</label>
                             <div class="control">
                                 <input class="input" v-model="selectedLog.date" type="date" placeholder="Todays date (placeholder)">
                             </div>
                         </div>
                         <div class="field">
-                            <label class="label" for="feeling">How well do you feel?</label>
+                            <label class="label has-text-grey" for="feeling">How well do you feel?</label>
                             <div class="control">
                                 <div class="select">
                                     <select class="" v-model="selectedLog.feeling" name="feeling" id="feelingSelect">
@@ -41,9 +41,9 @@
                             </div>
 
                         </div>
-                        <div class="field has-addons pt-20">
+                        <div class="field has-addons pt-15">
                             <div class="control">
-                                <input class="input" type="text" name="newActivity" value="" autocomplete="off" v-model="newActivity" v-on:keyup.enter="addActivity(newActivity)" placeholder="Activity" />
+                                <input class="input" type="text" name="newActivity" value="" autocomplete="off" v-model="newActivity" v-on:keyup.enter="addActivity(newActivity)" v-on:keyup="searchActivity(newActivity)" placeholder="Activity" />
                             </div>
                             <div class="control">
                                 <a class="button" :disabled="!newActivity" v-on:click="addActivity(newActivity)">
@@ -52,6 +52,20 @@
                                         <i class="fas fa-plus"></i>
                                     </span>
                                 </a>
+                            </div>
+                        </div>
+                        <div class="field pb-20" v-if="activitySearchResult.length > 0">
+                            <div class="control">
+                                <div class="tags">
+                                    <div v-for="act in activitySearchResult" class="tag button" v-on:click="addActivity(act)">
+                                        <span class="">
+                                            {{ act }}
+                                        </span>
+                                        <span class="icon is-small">
+                                            <i class="fas fa-plus"></i>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="field">
@@ -71,9 +85,9 @@
                         <div class="field">
                             <div class="control">
                                 <div class="tags">
-                                    <span v-for="act in selectedLog.activities" class="tag is-info">
+                                    <span v-for="act in selectedLog.activities" class="tag is-info button" v-on:click="removeFromActivities(act)">
                                         {{ act.name }}
-                                        <button class="delete is-small" v-on:click="removeFromActivities(act)"></button>
+                                        <button class="delete is-small"></button>
                                     </span>
                                 </div>
                             </div>
@@ -96,7 +110,7 @@
                         <div class="field">
                             <div class="control">
                                 <div class="tags">
-                                    <div v-for="supp in suggestionNotInSupplements"  class="tag button" v-on:click="addSupplement(supp)">
+                                    <div v-for="supp in suggestionNotInSupplements" class="tag button" v-on:click="addSupplement(supp)">
                                         <span class="">
                                             {{ supp }}
                                         </span>
@@ -111,24 +125,32 @@
                         <div class="field">
                             <div class="control">
                                 <div class="tags">
-                                    <span v-for="supp in selectedLog.supplements" class="tag is-info">
+                                    <span v-for="supp in selectedLog.supplements" class="tag is-info button" v-on:click="removeFromSupplements(supp)">
                                         {{ supp }}
-                                        <button class="delete is-small" v-on:click="removeFromSupplements(supp)"></button>
+                                        <button class="delete is-small"></button>
                                     </span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="field pt-20">
-                            <label class="label" for="">Notes</label>
-                            <div class="controll">
+                            <label class="label has-text-grey" for="">Notes</label>
+                            <div class="control">
                                 <textarea v-model="selectedLog.comment" name="commentArea" class="textarea" id="" cols="30" rows="4"></textarea>
                             </div>
                         </div>
 
                         <div class="field" id="formActionButtons">
-                            <button class="button is-small is-pulled-left" v-on:click="resetLogEdit">Cancel</button>
-                            <button class="button is-info is-pulled-right" v-on:click="postLog">Submit</button>
+                            <div class="control">
+                                <div></div>
+                                <button class="button is-small " v-on:click="resetLogEdit">Cancel</button>
+                            </div>
+                            <div class="control">
+                                <div class="is-pulled-right">
+                                    <button class="button is-info" v-on:click="postLog">Submit</button>
+                                </div>
+
+                            </div>
                         </div>
 
                     </div>

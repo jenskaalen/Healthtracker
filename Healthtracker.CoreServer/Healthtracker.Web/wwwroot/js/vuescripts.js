@@ -41,7 +41,8 @@ var data = {
     newSupp: '',
     activitySuggestions: [],
     supplementSuggestions: [],
-    search: ''
+    search: '',
+    activitySearchResult: []
 };
 
 var app = new Vue({
@@ -85,9 +86,31 @@ var app = new Vue({
                 name: act
             });
 
-            if (this.newActivity === act) {
-                this.newActivity = null;
+            this.activitySearchResult = [];
+            this.newActivity = null;
+        },
+        searchActivity: function(text) {
+            if (!text) {
+                this.activitySearchResult = [];
+                return;
             }
+
+            const url = '/api/logactivity/search?text=' + text;
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(response => {
+                    this.activitySearchResult = response;
+                    // this.logEntries = response;
+                    // loader.hide();
+
+                }).catch(() => {
+                    alert('uh-oh, something went wrong');
+                });
         },
         addSupplement: function(supp) {
             if (!this.selectedLog.supplements) {

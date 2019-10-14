@@ -8,11 +8,11 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Healthtracker.Web.Repositories
 {
-    public class RavenDbRepository : ILogRepository
+    public class RavenLogRepository : ILogRepository
     {
         DocumentStore _store;
 
-        public RavenDbRepository()
+        public RavenLogRepository()
         {
             _store = GetDocumentStore();
             _store.Initialize();
