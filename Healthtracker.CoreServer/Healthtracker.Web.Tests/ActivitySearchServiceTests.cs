@@ -22,12 +22,6 @@ namespace Healthtracker.Web.Tests
         [Test]
         public void Search_returns_results()
         {
-            ConfigureServer(new TestServerOptions
-            {
-                DataDirectory = "C:\\temp",
-                FrameworkVersion = "2.2.6"
-            });
-
             using (var store = GetDocumentStore())
             {
                 AddTestData(store);

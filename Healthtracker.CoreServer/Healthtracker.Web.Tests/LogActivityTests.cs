@@ -13,11 +13,6 @@ namespace Healthtracker.Web.Tests
 {
     public class LogActivityTests: RavenTestDriver
     {
-        //[SetUp]
-        //void Setup()
-        //{
-
-        //}
         protected override void PreInitialize(IDocumentStore documentStore)
         {
             documentStore.Conventions.MaxNumberOfRequestsPerSession = 50;
@@ -28,12 +23,6 @@ namespace Healthtracker.Web.Tests
         [Test]
         public void AddActivity()
         {
-            ConfigureServer(new TestServerOptions
-            {
-                DataDirectory = "C:\\temp",
-                FrameworkVersion = "2.2.6"
-            });
-
             using (var store = GetDocumentStore())
             {
                 var actSugService = new ActivitySuggestionsService(store);
@@ -76,13 +65,4 @@ namespace Healthtracker.Web.Tests
             }
         } 
     }
-
-    //public class LogByName : AbstractIndexCreationTask<Log>
-    //{
-    //    public LogByName()
-    //    {
-    //        Map = logs => from log in logs select new { log.DocumentId};
-    //        Indexes.Add(x => x.DocumentId, FieldIndexing.Search);
-    //    }
-    //}
 }
