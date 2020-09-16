@@ -3,6 +3,7 @@
 
 
 app/**/*.js
+.dockerfile
 
 # User-specific files
 *.suo
