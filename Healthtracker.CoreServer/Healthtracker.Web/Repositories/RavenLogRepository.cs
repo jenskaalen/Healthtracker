@@ -27,11 +27,6 @@ namespace Healthtracker.Web.Repositories
         {
             using (var session = _store.OpenSession())
             {
-                //if (log.Id > 0)
-                //    SetDocumentIdFromId(log);
-
-                //var existingLog = log.DocumentId != null ? session.Load<Log>(log.DocumentId) : null;
-
                 Log existingLog = log.Id > 0 ? session.Query<Log>().Where(x => x.Id == log.Id).FirstOrDefault() : null;
 
                 if (existingLog != null)
@@ -111,7 +106,8 @@ namespace Healthtracker.Web.Repositories
                 return session.Query<Log>()
                     .Where(x => x.UserId == userId)
                     .Search(x => x.Comment, $"*{text}*")
-                    //.Include(x => x.FitbitActivities)
+                    .Search(x => x.Activities, $"*{text}*")
+                    .Search(x => x.Supplements, $"*{text}*")
                     .OrderByDescending(log => log.Date)
                     .ToList();
             }
