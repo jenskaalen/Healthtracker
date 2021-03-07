@@ -1,4 +1,5 @@
 ﻿using Healthtracker.Web.Model;
+using Microsoft.Extensions.Options;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Linq;
 using System;
@@ -10,11 +11,11 @@ namespace Healthtracker.Web.Repositories
 {
     public class RavenLogRepository : ILogRepository
     {
-        DocumentStore _store;
+        private DocumentStore _store;
 
-        public RavenLogRepository()
+        public RavenLogRepository(IOptions<IntegrationConfig> config)
         {
-            _store = GetDocumentStore();
+            _store = GetDocumentStore(config.Value);
             _store.Initialize();
         }
 
@@ -113,10 +114,21 @@ namespace Healthtracker.Web.Repositories
             }
         }
 
-        private DocumentStore GetDocumentStore()
+        private DocumentStore GetDocumentStore(IntegrationConfig config)
         {
-            X509Certificate2 clientCertificate = new X509Certificate2("certi.pfx", "FEANturi2");
+            X509Certificate2 clientCertificate = new X509Certificate2(config.CertificateName, config.CertificatePassword);
 
+#if DEBUG
+            return new DocumentStore()
+            {
+                Urls = new string[] { "http://bontonaso:8080" },
+                Database = "LogDb",
+                Conventions =
+                    {
+                        FindIdentityProperty = prop => prop.Name == "DocumentId"
+                    }
+            };
+#else
             return new DocumentStore()
             {
                 Urls = new string[] { "https://a.healthbonto.ravendb.community:4343" },
@@ -127,6 +139,7 @@ namespace Healthtracker.Web.Repositories
                         FindIdentityProperty = prop => prop.Name == "DocumentId"
                     }
             };
+#endif
         }
     }
 }

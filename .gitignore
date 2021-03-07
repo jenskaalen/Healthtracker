@@ -4,6 +4,8 @@
 
 app/**/*.js
 .dockerfile
+Healthtracker.Web/out/
+out/
 
 # User-specific files
 *.suo

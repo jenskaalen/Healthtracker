@@ -43,6 +43,12 @@ namespace Healthtracker.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+                
+            services.ConfigureApplicationCookie(o =>
+            {
+                o.ExpireTimeSpan = TimeSpan.FromHours(24);
+                o.SlidingExpiration = true;
+            });
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(
@@ -68,7 +74,7 @@ namespace Healthtracker.Web
 
             services.AddSingleton<IUserIdProvider, UsernameIdProvider>();
             //TODO: lazy load this
-            services.AddSingleton<IDocumentStore>(GetDocumentStore());
+            services.AddSingleton<IDocumentStore>(GetDocumentStore(config));
             services.AddSingleton<IActivitySuggestionsService, ActivitySuggestionsService>();
             services.AddSingleton<ISupplementSuggestionsService, SupplementSuggestionsService>();
             services.AddSingleton<IActivitySearchService, ActivitySearchService>();
@@ -80,15 +86,26 @@ namespace Healthtracker.Web
             services.AddMemoryCache();
             //services.AddHostedService<SynchronizationService>();
             services.AddSignalR();
-
             
         }
 
-        private static DocumentStore GetDocumentStore()
+        private static DocumentStore GetDocumentStore(IntegrationConfig config)
         {
-            X509Certificate2 clientCertificate = new X509Certificate2("certi.pfx", "FEANturi2");
+            //TODO: this cant be duplicate
+            X509Certificate2 clientCertificate = new X509Certificate2(config.CertificateName, config.CertificatePassword);
 
+#if DEBUG
             var doc = new DocumentStore()
+            {
+                Urls = new string[] { "http://bontonaso:8080" },
+                Database = "LogDb",
+                Conventions =
+                    {
+                        FindIdentityProperty = prop => prop.Name == "DocumentId"
+                    }
+            };
+#else
+            var doc =  new DocumentStore()
             {
                 Urls = new string[] { "https://a.healthbonto.ravendb.community:4343" },
                 Certificate = clientCertificate,
@@ -98,6 +115,7 @@ namespace Healthtracker.Web
                         FindIdentityProperty = prop => prop.Name == "DocumentId"
                     }
             };
+#endif
 
             doc.Initialize();
             return doc; 

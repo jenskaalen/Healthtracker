@@ -11,5 +11,7 @@ namespace Healthtracker.Web.Model
         public string GoogleClientSecret { get; set; }
         public string FitbitClientId { get; set; }
         public string FitbitClientBase64 { get; set; }
+        public string CertificateName { get; set; }
+        public string CertificatePassword { get; set; }
     }
 }
