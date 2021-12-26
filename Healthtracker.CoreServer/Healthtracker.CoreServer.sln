@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Healthtracker.Web", "Healthtracker.Web\Healthtracker.Web.csproj", "{C1A22081-FE11-4054-8066-9271072A9EA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityTools", "UtilityTools\UtilityTools.csproj", "{AF00B2E0-FC68-44C7-8A58-B79FF84BC6EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityTools", "UtilityTools\UtilityTools.csproj", "{AF00B2E0-FC68-44C7-8A58-B79FF84BC6EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Healthtracker.Web.Tests", "Healthtracker.Web.Tests\Healthtracker.Web.Tests.csproj", "{5C17500D-8EBF-4AAD-883C-6223EB46C299}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Healthtracker.Web.Tests", "Healthtracker.Web.Tests\Healthtracker.Web.Tests.csproj", "{5C17500D-8EBF-4AAD-883C-6223EB46C299}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
