@@ -2,7 +2,7 @@
 
 How to set up
 
-1. create integrationconfig.json and include in project Healthtracker.Web
+1. Create integrationconfig.json and include in project Healthtracker.Web
 
 ```
 {
@@ -11,12 +11,13 @@ How to set up
   //not necessary unless you will use fitbit integration
   "FitbitClientId": "22fitbitID",
   "FitbitClientBase64": "clientBase64",
-  //ravendb certificate
+  //RavenDB certificate
   "CertificateName": "certi.pfx",
-  "CertificatePassword": "feaeae",
+  "CertificatePassword": "secretypassword",
   "RavenDbUrl": "http://ravendb:8080",
   "RavenDbDatabaseName": "LogDb"
 }
 ```
 
-2. Open Healthtracker.Web\wwwroot folder in cmd and run "npm start" 
+2. Open Healthtracker.Web\wwwroot folder in cmd and run "npm start". This will build and watch the javascript and css.  
+3. Publish or debug the .NET project.
