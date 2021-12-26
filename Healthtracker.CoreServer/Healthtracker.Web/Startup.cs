@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Sqlite;
 using Healthtracker.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -59,8 +60,10 @@ namespace Healthtracker.Web
             //services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, SynchronizationService >();
             services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, SynchronizationService>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddMvcOptions(opts => opts.EnableEndpointRouting = false );
             services.Configure<IntegrationConfig>(Configuration);
+
 
             var config = Configuration.Get<IntegrationConfig>();
 
